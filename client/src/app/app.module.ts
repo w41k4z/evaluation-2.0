@@ -10,6 +10,9 @@ import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { TestComponent } from './views/test/test.component';
 import { MapComponent } from './views/map/map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { tokenInterceptor } from './interceptors/token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,19 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     TestComponent,
     MapComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, LeafletModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    LeafletModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useValue: tokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -12,7 +12,7 @@ import proj.eval.app.model.auth.Role;
 import proj.eval.app.model.auth.User;
 import proj.eval.app.repository.RoleRepository;
 import proj.eval.app.repository.UserRepository;
-import proj.eval.app.spec.UserSpecification;
+import proj.eval.app.spec.EntitySpecification;
 
 @Service
 public class UserService {
@@ -46,7 +46,8 @@ public class UserService {
   }
 
   public Page<User> getUsers(Integer page, Integer size) {
-    Specification<User> spec = UserSpecification.hasState(0);
+    EntitySpecification<User> userSpecification = new EntitySpecification<>();
+    Specification<User> spec = userSpecification.equals("state", 0);
     return repository.findAll(spec, PageRequest.of(page, size));
   }
 }

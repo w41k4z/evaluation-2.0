@@ -1,1 +1,50 @@
-<p>test works!</p>
+<form [formGroup]="testForm" (ngSubmit)="submitForm()">
+  <div class="form-group mb-3">
+    <label for="contact">Contact</label>
+    <input
+      type="text"
+      class="form-control"
+      id="contact"
+      [ngClass]="{ 'is-invalid': submitted && f['contact'].errors }"
+      formControlName="contact"
+    />
+    <div *ngIf="submitted && f['contact'].errors" class="invalid-feedback">
+      <p *ngIf="f['contact'].errors['required']">Contact is required.</p>
+      <p *ngIf="f['contact'].errors['malagasyNumber']">
+        Provide a valid malagasy number.
+      </p>
+    </div>
+  </div>
+  <div class="form-group mb-3">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+      formControlName="email"
+    />
+    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+      <p *ngIf="f['email'].errors['required']">Email is required.</p>
+      <p *ngIf="f['email'].errors['email']">Provide a valid email address.</p>
+    </div>
+  </div>
+  <div class="form-group mb-3">
+    <div
+      formArrayName="choices"
+      [ngClass]="{ 'is-invalid': submitted && f['choices'].errors }"
+    >
+      <div *ngFor="let checkbox of choices.controls; let i = index">
+        <input type="checkbox" [formControlName]="i" />
+        <label>Checkbox {{ i + 1 }}</label>
+      </div>
+    </div>
+    <div *ngIf="submitted && f['choices'].errors" class="invalid-feedback">
+      <p *ngIf="f['choices'].errors['required']">
+        At least 2 option must be checked
+      </p>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
