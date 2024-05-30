@@ -54,7 +54,12 @@ public class WebSecurity {
       .authorizeHttpRequests(authorize ->
         authorize
           // public endpoints
-          .requestMatchers("/error/**", "/public/**", "/auth/**")
+          .requestMatchers(
+            "/error/**",
+            "/public/**",
+            "/auth/**",
+            "/api/tests/resource"
+          )
           .permitAll()
           // admin endpoints
           .requestMatchers("/admin/**")
