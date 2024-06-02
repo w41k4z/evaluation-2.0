@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import proj.eval.app.exception.RoleException;
+import proj.eval.app.exception.UserException;
 import proj.eval.app.model.auth.Role;
 import proj.eval.app.model.auth.User;
 import proj.eval.app.repository.RoleRepository;
@@ -31,13 +32,26 @@ public class UserService {
     this.roleRepository = roleRepository;
   }
 
-  public User createUser(String username, String password, String role)
-    throws RoleException {
+  public User findByUsername(String username) {
+    Optional<User> user = repository.findByUsername(username);
+    if (user.isEmpty()) {
+      throw new UserException("User `" + username + "` not found");
+    }
+    return user.get();
+  }
+
+  public User createUser(
+    String name,
+    String username,
+    String password,
+    String role
+  ) throws RoleException {
     Optional<Role> userRole = roleRepository.findByName(role);
     if (userRole.isEmpty()) {
       throw new RoleException("Role `" + role + "` not found");
     }
     User user = new User();
+    user.setName(name);
     user.setUsername(username);
     user.setPassword(this.passwordEncoder.encode(password));
     user.setRoles(Collections.singleton(userRole.get()));

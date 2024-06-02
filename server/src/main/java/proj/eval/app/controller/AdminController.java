@@ -1,6 +1,7 @@
 package proj.eval.app.controller;
 
 import jakarta.validation.Valid;
+import java.sql.SQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import proj.eval.app.exception.RoleException;
 import proj.eval.app.request.CreateUserRequest;
+import proj.eval.app.service.AdminService;
 import proj.eval.app.service.UserService;
 import proj.eval.app.util.ApiResponse;
 
@@ -18,9 +20,11 @@ import proj.eval.app.util.ApiResponse;
 @RequestMapping("/admin")
 public class AdminController {
 
+  private AdminService adminService;
   private UserService userService;
 
-  public AdminController(UserService userService) {
+  public AdminController(AdminService adminService, UserService userService) {
+    this.adminService = adminService;
     this.userService = userService;
   }
 
@@ -34,19 +38,29 @@ public class AdminController {
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
-  @PostMapping("/create/user")
-  public ResponseEntity<ApiResponse> createUser(
+  @PostMapping("/create/team")
+  public ResponseEntity<ApiResponse> createTeam(
     @RequestBody @Valid CreateUserRequest request
   ) throws RoleException {
     ApiResponse response = new ApiResponse();
     response.setPayload(
       this.userService.createUser(
+          request.getName(),
           request.getUsername(),
           request.getPassword(),
           request.getRole()
         )
     );
-    response.setMessage("User created successfully");
+    response.setMessage("Team created successfully");
     return new ResponseEntity<>(response, HttpStatus.CREATED);
+  }
+
+  @GetMapping("/reinitialize")
+  public ResponseEntity<ApiResponse> reinitializeDatabase()
+    throws SQLException {
+    ApiResponse response = new ApiResponse();
+    this.adminService.reinitializeDatabase();
+    response.setMessage("Database reinitialized successfully");
+    return new ResponseEntity<>(response, HttpStatus.OK);
   }
 }

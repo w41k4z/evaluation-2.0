@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <h2 class="mb-5">Classement des coureurs:</h2>
+  <div class="notification">
+    <div class="error-message" *ngIf="error$ | async as error">
+      <p class="m-0">{{ error }}</p>
+    </div>
+    <div class="info-message" *ngIf="message$ | async as message">
+      <p class="m-0">{{ message }}</p>
+    </div>
+  </div>
+  <div
+    *ngIf="loading$ | async"
+    class="w-100 my-5 d-flex justify-content-center"
+  >
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  <section class="mb-5" *ngFor="let stageRanking of groupedRanking">
+    <h4 class="text-center">{{ stageRanking[0].stage.name }}</h4>
+    <table class="mb-5 table table-borderless ranking-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Coureur</th>
+          <th>Départ</th>
+          <th>Arrivé</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of stageRanking">
+          <td class="rank-number">{{ team.rank }}.</td>
+          <td>{{ team.runner.name }}</td>
+          <td>{{ team.startTime }}</td>
+          <td>{{ team.endTime }}</td>
+          <td>{{ team.score }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

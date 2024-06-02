@@ -22,11 +22,7 @@ export class TestComponent {
       contact: ['', [Validators.required, CustomValidators.malagasyNumber]],
       email: ['', [Validators.required, Validators.email]],
       choices: this.formBuilder.array(
-        [
-          new FormControl(false),
-          new FormControl(false),
-          new FormControl(false),
-        ],
+        [new FormControl(true), new FormControl(false), new FormControl(false)],
         [CustomValidators.minSelectedCheckboxes(2)]
       ),
     });

@@ -6,6 +6,6 @@ public class EntitySpecification<E> {
 
   public Specification<E> equals(String columnName, Object value) {
     return (root, query, criteriaBuilder) ->
-      criteriaBuilder.equal(root.get("state"), value.toString());
+      criteriaBuilder.equal(root.get(columnName), value.toString());
   }
 }

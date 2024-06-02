@@ -10,33 +10,88 @@
       class="menu-title my-2 d-none d-md-block"
       style="font-weight: bold; font-size: 0.9rem"
     >
-      Admin
+      Classement
     </li>
     <li
       class="nav-item nav-link d-flex align-items-center"
-      routerLink="/app/test"
+      routerLink="/app/general-ranking"
       routerLinkActive="active"
     >
       <span class="d-flex align-items-center" style="font-size: 20px">
-        <i class="bi bi-speedometer2"></i>
+        <i class="bi bi-card-list"></i>
       </span>
-      <p class="m-0 ms-3 d-none d-md-block">Test</p>
+      <p class="m-0 ms-3 d-none d-md-block">Général</p>
+    </li>
+    <li
+      class="nav-item nav-link d-flex align-items-center"
+      routerLink="/app/team-ranking"
+      routerLinkActive="active"
+    >
+      <span class="d-flex align-items-center" style="font-size: 20px">
+        <i class="bi bi-list-ol"></i>
+      </span>
+      <p class="m-0 ms-3 d-none d-md-block">Equipe</p>
     </li>
     <li
       class="menu-title my-2 d-none d-md-block"
       style="font-weight: bold; font-size: 0.9rem"
     >
-      Extra
+      Liste
     </li>
     <li
       class="nav-item nav-link d-flex align-items-center"
-      routerLink="/app/map"
+      routerLink="/app/stage-list"
       routerLinkActive="active"
     >
       <span class="d-flex align-items-center" style="font-size: 20px">
-        <i class="bi bi-map"></i>
+        <i class="bi bi-bar-chart-steps"></i>
       </span>
-      <p class="m-0 ms-3 d-none d-md-block">Map</p>
+      <p class="m-0 ms-3 d-none d-md-block">Etape</p>
     </li>
+    <li
+      class="menu-title my-2 d-none d-md-block"
+      style="font-weight: bold; font-size: 0.9rem"
+    >
+      Assignation
+    </li>
+    <li
+      class="nav-item nav-link d-flex align-items-center"
+      routerLink="/app/team/assign-runner"
+      routerLinkActive="active"
+      *ngIf="profile.isTeam()"
+    >
+      <span class="d-flex align-items-center" style="font-size: 20px">
+        <i class="bi bi-person-plus"></i>
+      </span>
+      <p class="m-0 ms-3 d-none d-md-block">Coureurs</p>
+    </li>
+    <li
+      class="nav-item nav-link d-flex align-items-center"
+      routerLink="/app/admin/assign-runner-time"
+      routerLinkActive="active"
+      *ngIf="profile.isAdmin()"
+    >
+      <span class="d-flex align-items-center" style="font-size: 20px">
+        <i class="bi bi-hourglass"></i>
+      </span>
+      <p class="m-0 ms-3 d-none d-md-block">Temps</p>
+    </li>
+    <li
+      class="menu-title my-2 d-none d-md-block"
+      style="font-weight: bold; font-size: 0.9rem"
+      *ngIf="profile.isAdmin()"
+    >
+      Admin
+    </li>
+    <button
+      class="nav-item nav-link d-flex align-items-center"
+      *ngIf="profile.isAdmin()"
+      (click)="reinitialize()"
+    >
+      <span class="d-flex align-items-center" style="font-size: 20px">
+        <i class="bi bi-exclamation-triangle text-danger"></i>
+      </span>
+      <p class="m-0 ms-3 d-none d-md-block text-danger">Réinitialiser</p>
+    </button>
   </ul>
 </nav>

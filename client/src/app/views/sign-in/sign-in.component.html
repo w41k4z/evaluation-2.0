@@ -1,0 +1,98 @@
+<section
+  class="app-primary-bg d-flex justify-content-center align-items-center"
+>
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="assets/images/bg.jpg" class="img-fluid" alt="Sample image" />
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form [formGroup]="checkoutForm" (ngSubmit)="signIn()">
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="email"><b>Adresse email</b></label>
+            <input
+              type="email"
+              id="email"
+              class="form-control form-control-lg"
+              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+              placeholder="Entrer votre adresse email"
+              formControlName="email"
+            />
+            <!-- User input error validation -->
+            @if (submitted && f['email'].errors) {
+            <div class="invalid-feedback">
+              @if (f['email'].errors['email']) {
+              <p class="m-0">Veuillez entrer une adresse email valide</p>
+              } @if (f['email'].errors['required']) {
+              <p class="m-0">L'adresse email est requise</p>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <label class="form-label" for="password"><b>Mot de passe</b></label>
+            <input
+              type="password"
+              id="password"
+              class="form-control form-control-lg"
+              [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+              placeholder="Entrer votre mot de passe"
+              formControlName="password"
+            />
+            <!-- User input error validation -->
+            @if (submitted && f['password'].errors) {
+            <div class="invalid-feedback">
+              @if (f['password'].errors['required']) {
+              <p class="m-0">Le mot de passe est requis</p>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Server error validation -->
+          <div
+            class="mb-2 alert alert-danger"
+            *ngIf="error$ | async as error"
+            role="alert"
+          >
+            {{ error }}
+          </div>
+
+          <!-- Checkbox -->
+          <div class="form-check mb-0">
+            <input
+              class="form-check-input me-2"
+              type="checkbox"
+              value=""
+              id="form2Example3"
+            />
+            <label class="form-check-label" for="form2Example3">
+              Se souvenir
+            </label>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4 pt-2">
+            <button
+              type="submit"
+              data-mdb-button-init
+              data-mdb-ripple-init
+              class="btn btn-primary btn-lg w-100"
+            >
+              <span
+                *ngIf="loading$ | async; else text"
+                class="spinner-border text-white"
+                role="status"
+              ></span>
+              <ng-template #text>
+                <p class="m-0">Se connecter</p>
+              </ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

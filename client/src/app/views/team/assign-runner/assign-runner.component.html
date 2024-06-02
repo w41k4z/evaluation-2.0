@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="notification">
+    <div class="error-message" *ngIf="error$ | async as error">
+      <p class="m-0">{{ error }}</p>
+    </div>
+    <div class="info-message" *ngIf="message$ | async as message">
+      <p class="m-0">{{ message }}</p>
+    </div>
+  </div>
+  <h2>Assigné vos coureurs:</h2>
+  <section>
+    <div class="form-row" *ngFor="let row of teamRunners; index as i">
+      <label for="stageSelect{{ i }}">Stage:</label>
+      <select
+        id="stageSelect{{ i }}"
+        [(ngModel)]="selectedStage"
+        [disabled]="i != 0"
+      >
+        <option *ngFor="let stage of stages" value="{{ stage.id }}">
+          {{ stage.name }}
+        </option>
+      </select>
+      <label for="runnerSelect{{ i }}">Runner:</label>
+      <select id="runnerSelect{{ i }}" [(ngModel)]="teamRunners[i].runnerId">
+        <option *ngFor="let runner of runners" value="{{ runner.id }}">
+          {{ runner.name }}
+        </option>
+      </select>
+      <button
+        *ngIf="i == teamRunners.length - 1"
+        type="button"
+        class="add-row-btn"
+        (click)="addRow()"
+      >
+        Ajouter
+      </button>
+    </div>
+  </section>
+  <button type="submit" class="submit-btn" (click)="submit()">Valider</button>
+</div>

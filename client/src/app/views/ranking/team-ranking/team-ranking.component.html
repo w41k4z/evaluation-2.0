@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Classement des équipes</h2>
+  <div class="notification">
+    <div class="error-message" *ngIf="error$ | async as error">
+      <p class="m-0">{{ error }}</p>
+    </div>
+    <div class="info-message" *ngIf="message$ | async as message">
+      <p class="m-0">{{ message }}</p>
+    </div>
+  </div>
+  <div
+    *ngIf="loading$ | async"
+    class="w-100 my-5 d-flex justify-content-center"
+  >
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  <table class="table table-borderless ranking-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Equipe</th>
+        <th>Score totale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let team of ranking">
+        <td class="rank-number">{{ team.rank }}.</td>
+        <td>{{ team.team.name }}</td>
+        <td>{{ team.totalScore }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

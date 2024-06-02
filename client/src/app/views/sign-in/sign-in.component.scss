@@ -1,0 +1,21 @@
+section {
+  color: #1a1919;
+  min-height: 100vh;
+  background-color: #F2F2F2;
+}
+
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+.h-custom {
+  height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}

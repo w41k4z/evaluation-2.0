@@ -11,11 +11,14 @@ import proj.eval.app.enumeration.Authority;
 @AllArgsConstructor
 public class CreateUserRequest {
 
+  @NotBlank(message = "Name is required")
+  private String name;
+
   @NotBlank(message = "Username is required")
   private String username;
 
   @NotBlank(message = "Password is required")
   private String password;
 
-  private String role = Authority.USER.name();
+  private String role = Authority.TEAM.name();
 }

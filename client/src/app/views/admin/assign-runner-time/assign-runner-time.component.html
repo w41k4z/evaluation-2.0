@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="d-flex align-items-center mb-3">
+    <h2>Choisissez:</h2>
+    <select class="form-select ms-3" [(ngModel)]="selectedStage">
+      <option *ngFor="let stage of stages" value="{{ stage.id }}">
+        {{ stage.name }}
+      </option>
+    </select>
+    <button class="ms-3 btn btn-primary" (click)="search()">Search</button>
+  </div>
+  <div
+    *ngIf="loading$ | async"
+    class="w-100 my-5 d-flex justify-content-center"
+  >
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  <div class="notification">
+    <div class="error-message" *ngIf="error$ | async as error">
+      <p class="m-0">{{ error }}</p>
+    </div>
+    <div class="info-message" *ngIf="message$ | async as message">
+      <p class="m-0">{{ message }}</p>
+    </div>
+  </div>
+  <div class="mt-5" *ngIf="stageRunners.length == 0">
+    <p>Aucun coureurs trouvés à cette étape</p>
+  </div>
+  <div class="mt-5" *ngIf="stageRunners.length > 0">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Départ</span>
+      <input
+        type="time"
+        class="form-control"
+        [(ngModel)]="startTime"
+        step="1"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Arrivé</span>
+      <input type="time" class="form-control" [(ngModel)]="endTime" step="1" />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Choisissez le coureur</span>
+      <select class="form-select" [(ngModel)]="selectedRunner">
+        <option
+          *ngFor="let stageRunner of stageRunners"
+          value="{{ stageRunner.id }}"
+        >
+          {{ stageRunner.runner.name }}
+        </option>
+      </select>
+    </div>
+    <button class="btn btn-primary" (click)="submit()">Validate</button>
+  </div>
+</div>
