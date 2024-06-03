@@ -16,7 +16,8 @@ CREATE TABLE users (
 CREATE TABLE user_roles (
     id SERIAL PRIMARY KEY,
     users_id VARCHAR(9) REFERENCES users(id) NOT NULL,
-    roles_id BIGINT REFERENCES roles(id) NOT NULL
+    roles_id BIGINT REFERENCES roles(id) NOT NULL,
+    CONSTRAINT uq_user_role UNIQUE(users_id, roles_id)
 );
 
 
@@ -36,7 +37,7 @@ CREATE TABLE points (
 
 CREATE TABLE runners (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(50) NOT NULL,
     team_id VARCHAR(9) REFERENCES users(id) NOT NULL,
     number INTEGER NOT NULL,
     gender INTEGER NOT NULL,
@@ -54,8 +55,10 @@ CREATE TABLE runner_categories (
 
 CREATE TABLE stages (
     id SERIAL PRIMARY KEY,
+    start_date DATE NOT NULL,
+    start_time TIME NOT NULL,
     rank INTEGER UNIQUE NOT NULL,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(50) NOT NULL,
     path_length DOUBLE PRECISION NOT NULL,
     runners_per_team INTEGER NOT NULL,
     state INTEGER NOT NULL,
@@ -72,6 +75,24 @@ CREATE TABLE stage_runners (
 CREATE TABLE runners_times (
     id SERIAL PRIMARY KEY,
     stage_runners_id BIGINT REFERENCES stage_runners(id) UNIQUE NOT NULL, -- UNIQUE because it is the combination of the runner_id and the stage_id
-    start_time TIME NOT NULL,
-    end_time TIME
+    arrival_time TIMESTAMP NOT NULL
+);
+
+CREATE TABLE imported_stages (
+    rank INTEGER UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    path_length DOUBLE PRECISION NOT NULL,
+    runners_per_team INTEGER NOT NULL,
+    start_date DATE NOT NULL,
+    start_time TIME NOT NULL
+);
+
+CREATE TABLE imported_results (
+    stage_rank INTEGER NOT NULL,
+    runner_number INTEGER NOT NULL,
+    runner_name VARCHAR(100) NOT NULL,
+    runner_gender INTEGER NOT NULL,
+    runner_birth_date DATE NOT NULL,
+    team VARCHAR(50) NOT NULL,
+    arrival_time TIMESTAMP NOT NULL
 );

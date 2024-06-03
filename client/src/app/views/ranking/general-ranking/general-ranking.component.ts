@@ -17,7 +17,7 @@ export class GeneralRankingComponent {
   constructor(public statService: StatService) {}
 
   ngOnInit(): void {
-    this.statService.generalRanking().subscribe((response: any) => {
+    this.statService.generalRankingPerStage().subscribe((response: any) => {
       this.ranking = response.payload;
       this.groupByStage();
     });

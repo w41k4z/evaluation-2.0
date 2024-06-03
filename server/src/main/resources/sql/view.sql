@@ -12,36 +12,70 @@ WHERE roles.name = 'TEAM'
 CREATE VIEW team_runners AS
 SELECT
     row_number() OVER (
-        ORDER BY stage_runners.stage_id ASC
+        ORDER BY (SELECT 1)
     ) AS id,
     stage_id,
     users.id AS team_id,
-    runner_id
+    runner_id,
+    (runners_times.arrival_time - (stages.start_date + stages.start_time)) AS chrono
 FROM stage_runners
+LEFT JOIN runners_times
+    ON runners_times.stage_runners_id = stage_runners.id
+JOIN stages
+    ON stages.id = stage_runners.stage_id
 JOIN runners
     ON runners.id = stage_runners.runner_id
 JOIN users
     ON users.id = runners.team_id
 ;
 
+-- runner ranking per stage (no category)
 CREATE VIEW ranking AS
 SELECT
     DENSE_RANK() OVER (
         PARTITION BY stage_runners.stage_id
-        ORDER BY (runners_times.end_time - runners_times.start_time) ASC
+        ORDER BY (runners_times.arrival_time - (stages.start_date + stages.start_time)) ASC
     ) AS rank,
-    stage_runners.runner_id,
     stage_runners.stage_id,
-    runners_times.start_time,
-    runners_times.end_time
+    stage_runners.runner_id,
+    runners_times.arrival_time - (stages.start_date + stages.start_time) AS chrono
 FROM runners_times
 JOIN stage_runners
     ON stage_runners.id = runners_times.stage_runners_id
+JOIN stages
+    ON stages.id = stage_runners.stage_id
 ORDER BY
     stage_runners.stage_id ASC,
     rank ASC
 ;
 
+-- runner ranking per stage (with category)
+CREATE VIEW category_ranking AS
+SELECT
+    DENSE_RANK() OVER (
+        PARTITION BY stage_runners.stage_id, runner_categories.category_id
+        ORDER BY (runners_times.arrival_time - (stages.start_date + stages.start_time)) ASC
+    ) AS rank,
+    stage_runners.stage_id,
+    stage_runners.runner_id,
+    runner_categories.category_id,
+    runners_times.arrival_time - (stages.start_date + stages.start_time) AS chrono
+FROM runners_times
+JOIN stage_runners
+    ON stage_runners.id = runners_times.stage_runners_id
+JOIN stages
+    ON stages.id = stage_runners.stage_id
+JOIN runners
+    ON runners.id = stage_runners.runner_id
+JOIN runner_categories
+    ON runner_categories.runner_id = runners.id
+ORDER BY
+    stage_runners.stage_id ASC,
+    runner_categories.category_id ASC,
+    rank ASC
+;
+
+-- runner ranking per stage (no category, with score)
 CREATE VIEW general_ranking AS
 SELECT
     ROW_NUMBER() OVER (
@@ -50,8 +84,7 @@ SELECT
     ranking.rank,
     ranking.runner_id,
     ranking.stage_id,
-    ranking.start_time,
-    ranking.end_time,
+    ranking.chrono,
     COALESCE(points.score, 0) AS score
 FROM ranking
 LEFT JOIN points
@@ -61,6 +94,74 @@ ORDER BY
     rank ASC
 ;
 
+-- runner ranking per stage (with category, with score)
+CREATE VIEW general_category_ranking AS
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY (SELECT 1)
+    ) AS id,
+    category_ranking.stage_id,
+    category_ranking.category_id,
+    category_ranking.rank,
+    category_ranking.runner_id,
+    category_ranking.chrono,
+    COALESCE(points.score, 0) AS score
+FROM category_ranking
+LEFT JOIN points
+    ON points.rank = category_ranking.rank
+ORDER BY
+    category_ranking.stage_id ASC,
+    category_ranking.category_id ASC,
+    rank ASC
+;
+
+-- global runner ranking (all stages, no category)
+CREATE VIEW runner_ranking AS
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY (SELECT 1)
+    ) AS id,
+    DENSE_RANK() OVER (
+        ORDER BY SUM(score) DESC
+    ) AS rank,
+    runner_id,
+    SUM(score) AS total_score,
+    SUM(chrono) AS total_chrono
+FROM general_ranking
+GROUP BY
+    runner_id
+ORDER BY
+    rank ASC
+;
+
+-- global runner ranking (all stages, with category)
+CREATE VIEW runner_category_ranking AS
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY (SELECT 1)
+    ) AS id,
+    DENSE_RANK() OVER (
+        PARTITION BY category_id
+        ORDER BY SUM(score) DESC
+    ) AS rank,
+    category_id,
+    runner_id,
+    SUM(score) AS total_score,
+    SUM(chrono) AS total_chrono
+FROM general_category_ranking
+JOIN runners
+    ON runners.id = runner_id
+JOIN categories
+    ON categories.id = category_id
+GROUP BY
+    category_id,
+    runner_id
+ORDER BY
+    category_id,
+    rank ASC
+;
+
+-- global team ranking (all stages, no category)
 CREATE VIEW team_ranking AS
 SELECT
     ROW_NUMBER() OVER (
@@ -89,5 +190,39 @@ FROM (
     FROM teams
 ) AS final_ranking
 GROUP BY
+    final_ranking.team_id
+;
+
+-- global team ranking (all stages, with category)
+CREATE VIEW team_category_ranking AS
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY (SELECT 1)
+    ) AS id,
+    DENSE_RANK() OVER (
+        PARTITION BY final_ranking.category_id
+        ORDER BY SUM(final_ranking.total_score) DESC
+    ) AS rank,
+    final_ranking.team_id,
+    final_ranking.category_id,
+    SUM(final_ranking.total_score) AS total_score
+FROM (
+    SELECT
+        users.id AS team_id,
+        general_category_ranking.category_id,
+        SUM(COALESCE(general_category_ranking.score, 0)) AS total_score
+    FROM general_category_ranking
+    JOIN runners
+        ON runners.id = general_category_ranking.runner_id
+    JOIN users
+        ON users.id = runners.team_id
+    GROUP BY
+        users.id,
+        general_category_ranking.category_id
+    ORDER BY
+        general_category_ranking.category_id
+) AS final_ranking
+GROUP BY
+    final_ranking.category_id,    
     final_ranking.team_id
 ;

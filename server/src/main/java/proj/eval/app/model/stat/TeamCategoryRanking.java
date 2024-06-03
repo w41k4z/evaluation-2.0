@@ -1,5 +1,6 @@
 package proj.eval.app.model.stat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -9,31 +10,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Immutable;
-import proj.eval.app.model.Runner;
-import proj.eval.app.model.Stage;
+import proj.eval.app.model.Category;
+import proj.eval.app.model.auth.User;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "general_ranking")
+@Table(name = "team_category_ranking")
 @Immutable
-public class GeneralRanking {
+public class TeamCategoryRanking {
 
   @Id
-  private Integer id;
+  private Long id;
 
   private Integer rank;
 
   @OneToOne
-  @JoinColumn(name = "runner_id")
-  private Runner runner;
+  @JoinColumn(name = "team_id")
+  private User team;
 
   @OneToOne
-  @JoinColumn(name = "stage_id")
-  private Stage stage;
+  @JoinColumn(name = "category_id")
+  private Category category;
 
-  private String chrono;
-
-  private Integer score;
+  @Column(name = "total_score")
+  private Integer totalScore;
 }

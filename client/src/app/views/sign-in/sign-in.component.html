@@ -22,9 +22,7 @@
             <!-- User input error validation -->
             @if (submitted && f['email'].errors) {
             <div class="invalid-feedback">
-              @if (f['email'].errors['email']) {
-              <p class="m-0">Veuillez entrer une adresse email valide</p>
-              } @if (f['email'].errors['required']) {
+              @if (f['email'].errors['required']) {
               <p class="m-0">L'adresse email est requise</p>
               }
             </div>

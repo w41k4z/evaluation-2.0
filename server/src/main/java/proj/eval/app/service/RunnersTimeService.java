@@ -1,6 +1,6 @@
 package proj.eval.app.service;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 import org.springframework.stereotype.Service;
 import proj.eval.app.model.RunnersTime;
 import proj.eval.app.repository.RunnersTimeRepository;
@@ -14,15 +14,10 @@ public class RunnersTimeService {
     this.repository = repository;
   }
 
-  public void assignRunnersTime(
-    Long stageRunnersId,
-    Time startTime,
-    Time endTime
-  ) {
+  public void assignRunnersTime(Long stageRunnersId, Timestamp arrivalTime) {
     RunnersTime runnersTime = new RunnersTime();
     runnersTime.setStageRunnersId(stageRunnersId);
-    runnersTime.setStartTime(startTime);
-    runnersTime.setEndTime(endTime);
+    runnersTime.setArrivalTime(arrivalTime);
     repository.save(runnersTime);
   }
 }

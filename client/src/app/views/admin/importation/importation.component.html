@@ -1,0 +1,63 @@
+<h1 class="text-center text-primary">Importation des données</h1>
+<div class="notification">
+  <div class="error-message" *ngIf="error$ | async as error">
+    <p class="m-0">{{ error }}</p>
+  </div>
+  <div class="info-message" *ngIf="message$ | async as message">
+    <p class="m-0">{{ message }}</p>
+  </div>
+</div>
+<div *ngIf="loading$ | async" class="w-100 my-5 d-flex justify-content-center">
+  <div class="spinner-border text-primary" role="status"></div>
+</div>
+<div class="card mt-4">
+  <div class="card-body">
+    <div class="row input-group align-items-center">
+      <label class="col-4" for="stage">Etapes</label>
+      <input
+        class="col-8"
+        type="file"
+        class="form-control"
+        (change)="setStageFile($event)"
+        id="stage"
+      />
+    </div>
+    <div class="mt-2 row input-group align-items-center">
+      <label class="col-4" for="result">Résultat</label>
+      <input
+        class="col-8"
+        type="file"
+        class="form-control"
+        (change)="setResultFile($event)"
+        id="result"
+      />
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-center">
+    <button
+      class="btn btn-outline-secondary"
+      (click)="uploadStageFileAndResultFile()"
+    >
+      Importer
+    </button>
+  </div>
+</div>
+<div class="card mt-5">
+  <div class="card-body">
+    <div class="row input-group align-items-center">
+      <label class="col-4" for="points">Points</label>
+      <input
+        class="col-8"
+        type="file"
+        class="form-control"
+        (change)="setPointFile($event)"
+        id="points"
+      />
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-center">
+    <button class="btn btn-outline-secondary" (click)="uploadPointFile()">
+      Importer
+    </button>
+  </div>
+</div>

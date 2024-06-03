@@ -12,4 +12,8 @@ export class SideNavComponent {
   reinitialize() {
     this.profile.reinitialize();
   }
+
+  assignCategories() {
+    this.profile.assignCategories();
+  }
 }

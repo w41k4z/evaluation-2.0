@@ -34,4 +34,10 @@ export class ProfileService {
       alert('Reinitialisation effectuée');
     });
   }
+
+  assignCategories() {
+    this.http.get(`${env.api}/admin/assign-categories`).subscribe(() => {
+      alert('Assignation des catégories effectuée');
+    });
+  }
 }

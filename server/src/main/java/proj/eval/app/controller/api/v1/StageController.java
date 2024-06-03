@@ -1,7 +1,9 @@
 package proj.eval.app.controller.api.v1;
 
 import jakarta.validation.Valid;
+import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +79,8 @@ public class StageController {
     ApiResponse response = new ApiResponse();
     response.setPayload(
       service.create(
+        Date.valueOf(stage.getStartDate()),
+        Time.valueOf(stage.getStartTime()),
         stage.getRank(),
         stage.getName(),
         stage.getPathLength(),
@@ -96,6 +100,8 @@ public class StageController {
     response.setPayload(
       service.update(
         Long.parseLong(id),
+        Date.valueOf(stage.getStartDate()),
+        Time.valueOf(stage.getStartTime()),
         stage.getRank(),
         stage.getName(),
         stage.getPathLength(),
@@ -129,8 +135,7 @@ public class StageController {
     ApiResponse response = new ApiResponse();
     service.assignRunnersTime(
       Long.parseLong(request.getStageRunnersId()),
-      Time.valueOf(request.getStartTime()),
-      Time.valueOf(request.getEndTime())
+      Timestamp.valueOf(request.getArrivalTime())
     );
     response.setMessage("Runner's time assigned successfully");
     return ResponseEntity.ok(response);

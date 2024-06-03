@@ -1,6 +1,8 @@
 package proj.eval.app.service;
 
+import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.domain.Specification;
@@ -50,13 +52,16 @@ public class StageService {
   }
 
   public Stage create(
+    Date startDate,
+    Time startTime,
     Integer rank,
     String name,
     Double pathLength,
     Integer runnersPerTeam
   ) {
     Stage stage = new Stage();
-    stage.setRank(rank);
+    stage.setStartDate(startDate);
+    stage.setStartTime(startTime);
     stage.setName(name);
     stage.setPathLength(pathLength);
     stage.setRunnersPerTeam(runnersPerTeam);
@@ -66,6 +71,8 @@ public class StageService {
 
   public Stage update(
     Long id,
+    Date startDate,
+    Time startTime,
     Integer rank,
     String name,
     Double pathLength,
@@ -75,6 +82,8 @@ public class StageService {
     if (stage.isEmpty()) {
       throw new StageException("Stage with id `" + id + "` not found");
     }
+    stage.get().setStartDate(startDate);
+    stage.get().setStartTime(startTime);
     stage.get().setRank(rank);
     stage.get().setName(name);
     stage.get().setPathLength(pathLength);
@@ -111,15 +120,7 @@ public class StageService {
     }
   }
 
-  public void assignRunnersTime(
-    Long stageRunnersId,
-    Time startTime,
-    Time endTime
-  ) {
-    this.runnersTimeService.assignRunnersTime(
-        stageRunnersId,
-        startTime,
-        endTime
-      );
+  public void assignRunnersTime(Long stageRunnersId, Timestamp arrivalTime) {
+    this.runnersTimeService.assignRunnersTime(stageRunnersId, arrivalTime);
   }
 }

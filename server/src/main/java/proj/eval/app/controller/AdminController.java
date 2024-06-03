@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import proj.eval.app.exception.RoleException;
 import proj.eval.app.request.CreateUserRequest;
 import proj.eval.app.service.AdminService;
+import proj.eval.app.service.CategoryService;
 import proj.eval.app.service.UserService;
 import proj.eval.app.util.ApiResponse;
 
@@ -22,10 +23,16 @@ public class AdminController {
 
   private AdminService adminService;
   private UserService userService;
+  private CategoryService categoryService;
 
-  public AdminController(AdminService adminService, UserService userService) {
+  public AdminController(
+    AdminService adminService,
+    UserService userService,
+    CategoryService categoryService
+  ) {
     this.adminService = adminService;
     this.userService = userService;
+    this.categoryService = categoryService;
   }
 
   @GetMapping("/users")
@@ -61,6 +68,14 @@ public class AdminController {
     ApiResponse response = new ApiResponse();
     this.adminService.reinitializeDatabase();
     response.setMessage("Database reinitialized successfully");
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+
+  @GetMapping("/assign-categories")
+  public ResponseEntity<ApiResponse> assignCategories() throws SQLException {
+    ApiResponse response = new ApiResponse();
+    this.categoryService.assignCategories();
+    response.setMessage("Categories assigned successfully to each runner");
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 }

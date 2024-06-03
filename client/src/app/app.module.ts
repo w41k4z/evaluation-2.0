@@ -22,6 +22,8 @@ import { AssignRunnerComponent } from './views/team/assign-runner/assign-runner.
 import { AssignRunnerTimeComponent } from './views/admin/assign-runner-time/assign-runner-time.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { RunnerRankingComponent } from './views/ranking/runner-ranking/runner-ranking.component';
+import { ImportationComponent } from './views/admin/importation/importation.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
     TeamRankingComponent,
     AssignRunnerComponent,
     AssignRunnerTimeComponent,
+    RunnerRankingComponent,
+    ImportationComponent,
   ],
   imports: [
     BrowserModule,

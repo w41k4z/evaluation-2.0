@@ -18,7 +18,7 @@ export class StatService {
 
   generalRanking() {
     this.loadingSubject.next(true);
-    return this.http.get(`${env.api}/api/v1/statistics/general`).pipe(
+    return this.http.get(`${env.api}/api/v1/statistics/runner/general`).pipe(
       tap((response: any) => {
         this.loadingSubject.next(false);
         this.messageSubject.next(response.message || null);
@@ -37,9 +37,30 @@ export class StatService {
     );
   }
 
-  teamRanking() {
+  generalRankingPerStage() {
     this.loadingSubject.next(true);
-    return this.http.get(`${env.api}/api/v1/statistics/general/team`).pipe(
+    return this.http.get(`${env.api}/api/v1/statistics/runner/general/stage`).pipe(
+      tap((response: any) => {
+        this.loadingSubject.next(false);
+        this.messageSubject.next(response.message || null);
+        setTimeout(() => {
+          this.messageSubject.next(null);
+        }, 5000);
+      }),
+      catchError((error) => {
+        this.loadingSubject.next(false);
+        this.errorSubject.next(error.message);
+        setTimeout(() => {
+          this.errorSubject.next(null);
+        }, 5000);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  teamGlobalRanking(filter: string) {
+    this.loadingSubject.next(true);
+    return this.http.get(`${env.api}/api/v1/statistics/team/general/${filter}`).pipe(
       tap((response: any) => {
         this.loadingSubject.next(false);
         this.messageSubject.next(response.message || null);

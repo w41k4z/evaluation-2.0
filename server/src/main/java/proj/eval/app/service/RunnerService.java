@@ -26,6 +26,12 @@ public class RunnerService {
     this.userService = userService;
   }
 
+  public List<Runner> allRunners() {
+    EntitySpecification<Runner> entitySpec = new EntitySpecification<>();
+    Specification<Runner> spec = entitySpec.equals("state", 0);
+    return this.repository.findAll(spec);
+  }
+
   public List<Runner> list(UserDetails userDetails) {
     Boolean isAdmin = false;
     for (GrantedAuthority role : userDetails.getAuthorities()) {

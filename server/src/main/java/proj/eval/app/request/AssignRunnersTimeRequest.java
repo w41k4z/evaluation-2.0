@@ -13,9 +13,6 @@ public class AssignRunnersTimeRequest {
   @NotBlank(message = "Stage Runners Id is required")
   private String stageRunnersId;
 
-  @NotBlank(message = "Start Time is required")
-  private String startTime;
-
-  @NotBlank(message = "End Time is required")
-  private String endTime;
+  @NotBlank(message = "Arrival Time is required")
+  private String arrivalTime;
 }

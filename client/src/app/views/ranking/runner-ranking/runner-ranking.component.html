@@ -1,4 +1,13 @@
 <div class="container">
+  <header class="d-flex justify-content-between mb-5">
+    <h1>Classement des coureurs:</h1>
+    <button
+      class="btn btn-outline-primary"
+      routerLink="/app/general-ranking-per-stage"
+    >
+      Details
+    </button>
+  </header>
   <div class="notification">
     <div class="error-message" *ngIf="error$ | async as error">
       <p class="m-0">{{ error }}</p>
@@ -13,8 +22,7 @@
   >
     <div class="spinner-border text-primary" role="status"></div>
   </div>
-  <section class="mb-5" *ngFor="let stageRanking of groupedRanking">
-    <h4 class="text-center">{{ stageRanking[0].stage.name }}</h4>
+  <section class="mb-5">
     <table class="mb-5 table table-borderless ranking-table">
       <thead>
         <tr>
@@ -25,11 +33,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let team of stageRanking">
-          <td class="rank-number">{{ team.rank }}.</td>
-          <td>{{ team.runner.name }}</td>
-          <td>{{ team.chrono }}</td>
-          <td>{{ team.score }}</td>
+        <tr *ngFor="let each of ranking">
+          <td class="rank-number">{{ each.rank }}.</td>
+          <td>{{ each.runner.name }}</td>
+          <td>{{ each.chrono }}</td>
+          <td>{{ each.score }}</td>
         </tr>
       </tbody>
     </table>

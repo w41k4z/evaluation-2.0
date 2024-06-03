@@ -7,10 +7,12 @@ import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { teamGuard } from './guards/team.guard';
 import { StageListComponent } from './views/stage-list/stage-list.component';
-import { GeneralRankingComponent } from './views/ranking/general-ranking/general-ranking.component';
 import { TeamRankingComponent } from './views/ranking/team-ranking/team-ranking.component';
 import { AssignRunnerTimeComponent } from './views/admin/assign-runner-time/assign-runner-time.component';
 import { AssignRunnerComponent } from './views/team/assign-runner/assign-runner.component';
+import { RunnerRankingComponent } from './views/ranking/runner-ranking/runner-ranking.component';
+import { GeneralRankingComponent } from './views/ranking/general-ranking/general-ranking.component';
+import { ImportationComponent } from './views/admin/importation/importation.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,10 @@ const routes: Routes = [
       },
       {
         path: 'general-ranking',
+        component: RunnerRankingComponent,
+      },
+      {
+        path: 'general-ranking-per-stage',
         component: GeneralRankingComponent,
       },
       {
@@ -34,6 +40,11 @@ const routes: Routes = [
         path: 'admin/assign-runner-time',
         canActivate: [adminGuard],
         component: AssignRunnerTimeComponent,
+      },
+      {
+        path: 'admin/importation',
+        canActivate: [adminGuard],
+        component: ImportationComponent,
       },
       {
         path: 'team/assign-runner',

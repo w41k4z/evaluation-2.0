@@ -11,7 +11,7 @@ INSERT INTO users values
 
 INSERT INTO user_roles values (DEFAULT, 'USR000002', 2), (DEFAULT, 'USR000003', 2);
 
-INSERT INTO categories values (DEFAULT, 'Senior', 0), (DEFAULT, 'Junior', 0);
+INSERT INTO categories values (DEFAULT, 'Homme', 0), (DEFAULT, 'Femme', 0), (DEFAULT, 'Junior', 0), (DEFAULT, 'Senior', 0);
 
 INSERT INTO points values (1, 10), (2, 6), (3, 4), (4, 2), (5, 1);
 

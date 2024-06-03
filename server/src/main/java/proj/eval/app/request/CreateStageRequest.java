@@ -11,6 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateStageRequest {
 
+  @NotNull(message = "Starting date is required")
+  private String startDate;
+
+  @NotNull(message = "Starting time is required")
+  private String startTime;
+
   @NotNull(message = "Rank is required")
   private Integer rank;
 

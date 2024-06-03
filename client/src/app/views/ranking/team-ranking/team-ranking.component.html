@@ -1,5 +1,17 @@
-<div class="container mt-5">
-  <h2 class="mb-4">Classement des équipes</h2>
+<div class="container">
+  <header class="d-flex align-items-center mb-4">
+    <h1>Classement des équipes</h1>
+    <div class="ms-5 d-flex justify-content-center">
+      <select class="form-select" [(ngModel)]="filter">
+        <option *ngFor="let option of filters" value="{{ option.value }}">
+          {{ option.filter }}
+        </option>
+      </select>
+      <button (click)="filterByCategory()" class="btn btn-outline-primary ms-2">
+        Filter
+      </button>
+    </div>
+  </header>
   <div class="notification">
     <div class="error-message" *ngIf="error$ | async as error">
       <p class="m-0">{{ error }}</p>

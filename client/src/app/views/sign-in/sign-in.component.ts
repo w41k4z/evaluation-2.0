@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent {
   checkoutForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required]),
     password: new FormControl('', Validators.required),
   });
   loading$ = this.signInService.loading$;
