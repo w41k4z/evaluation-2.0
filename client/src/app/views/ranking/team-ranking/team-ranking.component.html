@@ -10,6 +10,13 @@
       <button (click)="filterByCategory()" class="btn btn-outline-primary ms-2">
         Filter
       </button>
+      <button
+        *ngIf="profileService.isAdmin()"
+        class="ms-3 btn btn-outline-success"
+        [routerLink]="['/page/certificate', filter]"
+      >
+        Certificate
+      </button>
     </div>
   </header>
   <div class="notification">
@@ -42,4 +49,14 @@
       </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-center">
+    <section class="stat">
+      <canvas
+        baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        [type]="pieChartType"
+      ></canvas>
+    </section>
+  </div>
 </div>

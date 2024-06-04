@@ -21,9 +21,19 @@ import { TeamRankingComponent } from './views/ranking/team-ranking/team-ranking.
 import { AssignRunnerComponent } from './views/team/assign-runner/assign-runner.component';
 import { AssignRunnerTimeComponent } from './views/admin/assign-runner-time/assign-runner-time.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import {
+  BaseChartDirective,
+  provideCharts,
+  withDefaultRegisterables,
+} from 'ng2-charts';
 import { RunnerRankingComponent } from './views/ranking/runner-ranking/runner-ranking.component';
 import { ImportationComponent } from './views/admin/importation/importation.component';
+import { StageAssignationComponent } from './views/team/stage-assignation/stage-assignation.component';
+import { CertificateComponent } from './views/admin/certificate/certificate.component';
+import { PenaltyAssignationComponent } from './views/admin/penalty-assignation/penalty-assignation.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { MatDialogActions } from '@angular/material/dialog';
+import { AssignationDialogComponent } from './views/admin/penalty-assignation/assignation-dialog/assignation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +53,11 @@ import { ImportationComponent } from './views/admin/importation/importation.comp
     AssignRunnerTimeComponent,
     RunnerRankingComponent,
     ImportationComponent,
+    StageAssignationComponent,
+    CertificateComponent,
+    PenaltyAssignationComponent,
+    DeleteDialogComponent,
+    AssignationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +66,8 @@ import { ImportationComponent } from './views/admin/importation/importation.comp
     HttpClientModule,
     LeafletModule,
     FormsModule,
+    BaseChartDirective,
+    MatDialogActions,
   ],
   providers: [
     {

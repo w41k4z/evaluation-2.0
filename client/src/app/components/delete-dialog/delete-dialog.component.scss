@@ -1,0 +1,13 @@
+.delete-dialog-content {
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    color: gray
+}
+
+.warning-icon {
+    color: rgb(255 75 75);
+    font-size: 100px;
+}

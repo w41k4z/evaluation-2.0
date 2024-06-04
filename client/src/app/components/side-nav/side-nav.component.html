@@ -78,6 +78,17 @@
     </li>
     <li
       class="nav-item nav-link d-flex align-items-center"
+      routerLink="/app/admin/penalty-assignation"
+      routerLinkActive="active"
+      *ngIf="profile.isAdmin()"
+    >
+      <span class="d-flex align-items-center" style="font-size: 20px">
+        <i class="bi bi-dash-circle"></i>
+      </span>
+      <p class="m-0 ms-3 d-none d-md-block">Pénalité</p>
+    </li>
+    <li
+      class="nav-item nav-link d-flex align-items-center"
       routerLink="/app/admin/importation"
       routerLinkActive="active"
       *ngIf="profile.isAdmin()"

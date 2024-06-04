@@ -1,0 +1,14 @@
+<div class="delete-dialog-content">
+  <i class="bi bi-exclamation-octagon warning-icon"></i>
+  <h3 mat-dialog-title class="my-4">Êtes-vous sûr ?</h3>
+  <p class="text-center">
+    Voulez-vous vraiment supprimer cet enregistrement? Ce processus ne peut pas
+    être annulé.
+  </p>
+  <mat-dialog-actions class="d-flex gap-2 justify-content-end">
+    <button class="btn btn-secondary" (click)="close()">Retour</button>
+    <button class="btn btn-danger" cdkFocusInitial (click)="confirm()">
+      Confirmer
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -14,10 +14,10 @@ SELECT
     row_number() OVER (
         ORDER BY (SELECT 1)
     ) AS id,
-    stage_runners.stage_id,
+    stage_id,
     users.id AS team_id,
     runner_id,
-    (runners_times.arrival_time - (stages.start_date + stages.start_time)) + COALESCE(team_penalties.penalty, '00:00:00') AS chrono
+    (runners_times.arrival_time - (stages.start_date + stages.start_time)) AS chrono
 FROM stage_runners
 LEFT JOIN runners_times
     ON runners_times.stage_runners_id = stage_runners.id
@@ -27,19 +27,6 @@ JOIN runners
     ON runners.id = stage_runners.runner_id
 JOIN users
     ON users.id = runners.team_id
-LEFT JOIN team_penalties
-    ON team_penalties.team_id = users.id AND team_penalties.stage_id = stages.id
-;
-
-CREATE VIEW team_penalties AS
-SELECT
-    stage_id,
-    team_id,
-    SUM(penalty) AS penalty
-FROM team_penalties
-GROUP BY
-    stage_id,
-    team_id
 ;
 
 -- runner ranking per stage (no category)
@@ -47,22 +34,16 @@ CREATE VIEW ranking AS
 SELECT
     DENSE_RANK() OVER (
         PARTITION BY stage_runners.stage_id
-        ORDER BY (runners_times.arrival_time - (stages.start_date + stages.start_time) + COALESCE(team_penalties.penalty, '00:00:00')) ASC
+        ORDER BY (runners_times.arrival_time - (stages.start_date + stages.start_time)) ASC
     ) AS rank,
     stage_runners.stage_id,
     stage_runners.runner_id,
-    runners_times.arrival_time - (stages.start_date + stages.start_time) + COALESCE(team_penalties.penalty, '00:00:00') AS chrono
+    runners_times.arrival_time - (stages.start_date + stages.start_time) AS chrono
 FROM runners_times
 JOIN stage_runners
     ON stage_runners.id = runners_times.stage_runners_id
 JOIN stages
     ON stages.id = stage_runners.stage_id
-JOIN runners
-    ON runners.id = stage_runners.runner_id
-JOIN users
-    ON users.id = runners.team_id
-LEFT JOIN team_penalties
-    ON team_penalties.team_id = users.id AND team_penalties.stage_id = stages.id
 ORDER BY
     stage_runners.stage_id ASC,
     rank ASC
@@ -73,12 +54,12 @@ CREATE VIEW category_ranking AS
 SELECT
     DENSE_RANK() OVER (
         PARTITION BY stage_runners.stage_id, runner_categories.category_id
-        ORDER BY (runners_times.arrival_time - (stages.start_date + stages.start_time) + COALESCE(team_penalties.penalty, '00:00:00')) ASC
+        ORDER BY (runners_times.arrival_time - (stages.start_date + stages.start_time)) ASC
     ) AS rank,
     stage_runners.stage_id,
     stage_runners.runner_id,
     runner_categories.category_id,
-    runners_times.arrival_time - (stages.start_date + stages.start_time) + COALESCE(team_penalties.penalty, '00:00:00') AS chrono
+    runners_times.arrival_time - (stages.start_date + stages.start_time) AS chrono
 FROM runners_times
 JOIN stage_runners
     ON stage_runners.id = runners_times.stage_runners_id
@@ -88,10 +69,6 @@ JOIN runners
     ON runners.id = stage_runners.runner_id
 JOIN runner_categories
     ON runner_categories.runner_id = runners.id
-JOIN users
-    ON users.id = runners.team_id
-LEFT JOIN team_penalties
-    ON team_penalties.team_id = users.id AND team_penalties.stage_id = stages.id
 ORDER BY
     stage_runners.stage_id ASC,
     runner_categories.category_id ASC,

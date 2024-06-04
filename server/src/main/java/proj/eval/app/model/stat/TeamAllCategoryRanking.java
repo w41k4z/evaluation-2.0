@@ -1,11 +1,11 @@
-package proj.eval.app.model;
+package proj.eval.app.model.stat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,24 +16,19 @@ import proj.eval.app.model.auth.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "team_runners")
+@Table(name = "team_all_category_ranking")
 @Immutable
-public class TeamRunner {
+public class TeamAllCategoryRanking {
 
   @Id
   private Long id;
 
-  @OneToOne
-  @JoinColumn(name = "stage_id")
-  private Stage stage;
+  private Integer rank;
 
   @OneToOne
   @JoinColumn(name = "team_id")
   private User team;
 
-  @OneToOne
-  @JoinColumn(name = "runner_id")
-  private Runner runner;
-
-  private Timestamp chrono;
+  @Column(name = "total_score")
+  private Integer totalScore;
 }

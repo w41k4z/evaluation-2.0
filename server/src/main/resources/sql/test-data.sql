@@ -21,5 +21,5 @@ INSERT INTO runners values
 (DEFAULT, 'Runner 3', 'USR000003', 1, 1, '1990-01-03', 0);
 
 INSERT INTO stages values
-(DEFAULT, 1, 'Betsizaraina', 10.0, 2, 0),
-(DEFAULT, 2, 'Ampasimbe', 20.0, 2, 0);
+(DEFAULT, NOW(), NOW(), 1, 'Betsizaraina', 10.0, 2, 0),
+(DEFAULT, NOW(), NOW(), 2, 'Ampasimbe', 20.0, 2, 0);

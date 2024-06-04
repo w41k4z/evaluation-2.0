@@ -1,0 +1,49 @@
+<section class="content">
+  <div class="content-header">
+    <h1>Liste des pénalités</h1>
+    <button
+      class="btn btn-warning"
+      *ngIf="profile.isAdmin()"
+      (click)="openAppDialog()"
+    >
+      Ajouter une pénalité
+    </button>
+  </div>
+  <div class="notification">
+    <div class="error-message" *ngIf="error$ | async as error">
+      <p class="m-0">{{ error }}</p>
+    </div>
+    <div class="info-message" *ngIf="message$ | async as message">
+      <p class="m-0">{{ message }}</p>
+    </div>
+  </div>
+  <div
+    *ngIf="loading$ | async; else content"
+    class="w-100 my-5 d-flex justify-content-center"
+  >
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  <ng-template #content>
+    <ul class="stage-list">
+      <li
+        class="stage-item"
+        *ngFor="let teamPenalty of teamPenalties; index as i"
+      >
+        <div class="stage-details">
+          <span class="stage-number">Équipe {{ teamPenalty.team.name }} :</span>
+          <span class="stage-name"
+            ><span>{{ teamPenalty.stage.name }}</span>
+            <i class="ms-1 bi bi-geo-alt"></i
+          ></span>
+          <span class="stage-penalty"
+            ><span>{{ teamPenalty.penalty }}</span>
+            <i class="ms-1 bi bi-hourglass-top"></i
+          ></span>
+        </div>
+        <button class="btn btn-danger" (click)="openDeleteDialog(i)">
+          Supprimer
+        </button>
+      </li>
+    </ul>
+  </ng-template>
+</section>

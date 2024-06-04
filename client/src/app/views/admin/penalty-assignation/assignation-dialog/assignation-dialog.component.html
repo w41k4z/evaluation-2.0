@@ -1,0 +1,41 @@
+<div class="penalty-dialog-content">
+  <h3 mat-dialog-title>Ajout pénalité</h3>
+  <main class="card card-body mt-2">
+    <div class="mb-3">
+      <div class="d-flex gap-1">
+        <div class="form-group">
+          <label for="stage">Etape</label>
+          <select class="form-select" id="stage" [(ngModel)]="stageId" required>
+            <option *ngFor="let stage of props.stages" value="{{ stage.id }}">
+              {{ stage.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="team">Equipe</label>
+          <select class="form-select" id="team" [(ngModel)]="teamId">
+            <option *ngFor="let team of props.teams" value="{{ team.id }}">
+              {{ team.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="penalty">Pénalité</label>
+          <input
+            class="form-control"
+            type="time"
+            step="1"
+            id="penalty"
+            [(ngModel)]="penaltyTime"
+            required
+          />
+        </div>
+      </div>
+    </div>
+  </main>
+  <section class="card-footer d-flex mt-2 justify-content-end">
+    <button class="btn btn-primary" (click)="confirm()" cdkFocusInitial>
+      Pénaliser
+    </button>
+  </section>
+</div>

@@ -57,8 +57,11 @@ public class WebSecurity {
           .requestMatchers("/error/**", "/public/**", "/auth/**")
           .permitAll()
           // admin endpoints
-          .requestMatchers("/admin/**")
+          .requestMatchers("/admin/**", "/api/v1/stages/assign-time/**")
           .hasAuthority(Authority.ADMIN.name())
+          // team endpoints
+          .requestMatchers("/api/v1/stages/assign/**")
+          .hasAuthority(Authority.TEAM.name())
           // any other request must be authenticated
           .anyRequest()
           .authenticated()

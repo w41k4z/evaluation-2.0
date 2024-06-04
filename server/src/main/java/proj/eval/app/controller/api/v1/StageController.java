@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import proj.eval.app.request.AssignPenaltyRequest;
 import proj.eval.app.request.AssignRunnersTimeRequest;
 import proj.eval.app.request.CreateStageRequest;
 import proj.eval.app.service.RunnerService;
 import proj.eval.app.service.StageRunnerService;
 import proj.eval.app.service.StageService;
+import proj.eval.app.service.TeamPenaltyService;
 import proj.eval.app.util.ApiResponse;
 
 @RestController
@@ -31,15 +33,18 @@ public class StageController {
   private StageService service;
   private RunnerService runnerService;
   private StageRunnerService stageRunnerService;
+  private TeamPenaltyService teamPenaltyService;
 
   public StageController(
     StageService service,
     RunnerService runnerService,
-    StageRunnerService stageRunnerService
+    StageRunnerService stageRunnerService,
+    TeamPenaltyService teamPenaltyService
   ) {
     this.service = service;
     this.runnerService = runnerService;
     this.stageRunnerService = stageRunnerService;
+    this.teamPenaltyService = teamPenaltyService;
   }
 
   @GetMapping
@@ -112,7 +117,7 @@ public class StageController {
     return ResponseEntity.ok(response);
   }
 
-  @PostMapping("/{id}/assign")
+  @PostMapping("/assign/{id}")
   public ResponseEntity<ApiResponse> assignRunners(
     @AuthenticationPrincipal UserDetails userDetails,
     @PathVariable String id,
@@ -138,6 +143,21 @@ public class StageController {
       Timestamp.valueOf(request.getArrivalTime())
     );
     response.setMessage("Runner's time assigned successfully");
+    return ResponseEntity.ok(response);
+  }
+
+  @PostMapping("/assign-time/penalty/{id}")
+  public ResponseEntity<ApiResponse> assignPenalty(
+    @PathVariable String id,
+    @RequestBody @Valid AssignPenaltyRequest penalty
+  ) {
+    ApiResponse response = new ApiResponse();
+    response.setPayload(this.teamPenaltyService.assignPenalty(
+      Long.parseLong(id),
+      penalty.getTeamId(),
+      Time.valueOf(penalty.getPenaltyTime())
+    ));
+    response.setMessage("Penalty assigned successfully");
     return ResponseEntity.ok(response);
   }
 }

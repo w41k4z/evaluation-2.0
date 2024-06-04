@@ -15,6 +15,6 @@ public class TeamRunnerService {
   }
 
   public List<TeamRunner> runners(String teamId, Long stageId) {
-    return repository.findAllByTeamIdAndStageId(teamId, stageId);
+    return repository.findAllByTeam_IdAndStage_Id(teamId, stageId);
   }
 }

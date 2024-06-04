@@ -96,3 +96,10 @@ CREATE TABLE imported_results (
     team VARCHAR(50) NOT NULL,
     arrival_time TIMESTAMP NOT NULL
 );
+
+CREATE TABLE team_penalty (
+    id SERIAL PRIMARY KEY,
+    stage_id BIGINT REFERENCES stages(id) NOT NULL,
+    team_id VARCHAR(9) REFERENCES users(id) NOT NULL,
+    penalty TIME NOT NULL
+);

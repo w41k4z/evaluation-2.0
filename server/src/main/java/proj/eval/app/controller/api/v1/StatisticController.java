@@ -35,11 +35,7 @@ public class StatisticController {
   @GetMapping("/team/general/{filter}")
   public ResponseEntity<ApiResponse> teamRanking(@PathVariable String filter) {
     ApiResponse response = new ApiResponse();
-    if (filter.equals("All")) {
-      response.setPayload(this.rankingService.teamGlobalRanking());
-    } else {
-      response.setPayload(this.rankingService.teamCategoryRanking(filter));
-    }
+    response.setPayload(this.rankingService.teamRanking(filter));
     return ResponseEntity.ok(response);
   }
 }

@@ -13,6 +13,9 @@ import { AssignRunnerComponent } from './views/team/assign-runner/assign-runner.
 import { RunnerRankingComponent } from './views/ranking/runner-ranking/runner-ranking.component';
 import { GeneralRankingComponent } from './views/ranking/general-ranking/general-ranking.component';
 import { ImportationComponent } from './views/admin/importation/importation.component';
+import { StageAssignationComponent } from './views/team/stage-assignation/stage-assignation.component';
+import { CertificateComponent } from './views/admin/certificate/certificate.component';
+import { PenaltyAssignationComponent } from './views/admin/penalty-assignation/penalty-assignation.component';
 
 const routes: Routes = [
   {
@@ -47,9 +50,19 @@ const routes: Routes = [
         component: ImportationComponent,
       },
       {
+        path: 'admin/penalty-assignation',
+        canActivate: [adminGuard],
+        component: PenaltyAssignationComponent,
+      },
+      {
         path: 'team/assign-runner',
         canActivate: [teamGuard],
         component: AssignRunnerComponent,
+      },
+      {
+        path: 'team/stage-assignation',
+        canActivate: [teamGuard],
+        component: StageAssignationComponent,
       },
     ],
   },
@@ -60,6 +73,11 @@ const routes: Routes = [
       {
         path: 'log-in',
         component: SignInComponent,
+      },
+      {
+        path: 'certificate/:category',
+        component: CertificateComponent,
+        canActivate: [adminGuard],
       },
     ],
   },

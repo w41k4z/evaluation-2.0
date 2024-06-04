@@ -1,0 +1,46 @@
+section {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+}
+
+.certificate {
+    width: 80%;
+    padding: 20px;
+    border: 10px solid #2e6da4;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-image: url('../../../../assets/images/bg.jpg');
+    background-position: center;
+}
+
+.header h1 {
+    margin: 0;
+    padding: 10px;
+    font-size: 2.5em;
+    color: #2e6da4;
+    border-bottom: 2px solid #2e6da4;
+}
+
+.content p {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.content span {
+    font-weight: bold;
+    color: #2e6da4;
+}
+
+.footer p {
+    margin-top: 40px;
+    font-size: 1.2em;
+    color: #666;
+}
