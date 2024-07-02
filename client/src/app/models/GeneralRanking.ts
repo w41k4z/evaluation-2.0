@@ -7,5 +7,7 @@ export type GeneralRanking = {
   runner: Runner;
   stage: Stage;
   chrono: string;
+  finalChrono: string;
+  penalty: string;
   score: number;
 };

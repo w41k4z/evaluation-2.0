@@ -4,15 +4,24 @@
       <h1 id="championship-title">ULTIMATE TEAM RACE</h1>
     </div>
     <div class="content mt-5">
-      <p id="category">
+      <p id="category my-2">
         Catégorie: <span>{{ category }}</span>
       </p>
-      <p id="team-name">
-        Nom de l'équipe: <span>{{ winner?.name }}</span>
+      <p id="team-name my-2">
+        <span>C H A M P I O N</span>: Equipe <span>{{ winner?.name }}</span>
+      </p>
+      <p class="desc mt-5">
+        L'équipe <span>{{ winner?.name }}</span> a remporté la comptétition
+        <span>ULTIMATE TEAM RACE</span> avec grace. Nous apprecions sincèrement
+        les efforts de chaque coureurs, leurs endurances et leurs travails
+        d'équipes
       </p>
     </div>
     <div class="footer">
       <p>Félicitations à tous les participants!</p>
+    </div>
+    <div class="d-flex justify-content-end">
+      <img src="assets/images/images.png" width="80" height="80" />
     </div>
   </div>
 </section>

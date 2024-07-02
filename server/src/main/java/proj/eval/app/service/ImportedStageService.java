@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import proj.eval.app.model.importation.ImportedStage;
+import proj.eval.app.model.postgres.importation.ImportedStage;
 
 @Service
 public class ImportedStageService {
@@ -27,7 +27,7 @@ public class ImportedStageService {
     for (ImportedStage importedStage : importedStages) {
       sql.append(importedStage.getRank());
       sql.append(",");
-      sql.append("'" + importedStage.getName() + "'");
+      sql.append("'" + importedStage.getName().replaceAll("'", "''") + "'");
       sql.append(",");
       sql.append(importedStage.getPathLength());
       sql.append(",");

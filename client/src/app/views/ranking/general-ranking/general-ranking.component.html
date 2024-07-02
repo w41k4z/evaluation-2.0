@@ -19,16 +19,24 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Equipe</th>
           <th>Coureur</th>
+          <th>Genre</th>
           <th>Chrono</th>
+          <th>Pénalité</th>
+          <th>Temps final</th>
           <th>Score</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let team of stageRanking">
           <td class="rank-number">{{ team.rank }}.</td>
+          <td>{{ team.runner.team.name }}</td>
           <td>{{ team.runner.name }}</td>
+          <td>{{ team.runner.gender == 1 ? "M" : "F" }}</td>
           <td>{{ team.chrono }}</td>
+          <td>{{ team.penalty }}</td>
+          <td>{{ team.finalChrono }}</td>
           <td>{{ team.score }}</td>
         </tr>
       </tbody>

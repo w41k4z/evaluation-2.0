@@ -10,6 +10,15 @@ import { ProfileService } from '../../../services/profile/profile.service';
   styleUrl: './team-ranking.component.scss',
 })
 export class TeamRankingComponent {
+  colors = [
+    'text-dark',
+    'text-primary',
+    'text-danger',
+    'text-success',
+    'text-warning',
+    'text-info',
+  ];
+  styles: string[] = [];
   ranking: TeamRanking[] = [];
   loading$ = this.statService.loading$;
   error$ = this.statService.error$;
@@ -21,7 +30,7 @@ export class TeamRankingComponent {
       value: 'Aside',
     },
     {
-      filter: 'Tous',
+      filter: 'Toutes catégories',
       value: 'All',
     },
     {
@@ -62,6 +71,7 @@ export class TeamRankingComponent {
       .teamGlobalRanking(this.filter)
       .subscribe((response: any) => {
         this.ranking = response.payload;
+        this.setStyles();
         this.resetChartData();
       });
   }
@@ -71,8 +81,28 @@ export class TeamRankingComponent {
       .teamGlobalRanking(this.filter)
       .subscribe((response: any) => {
         this.ranking = response.payload;
+        this.setStyles();
         this.resetChartData();
       });
+  }
+
+  setStyles() {
+    this.styles = [];
+    let colorIndex = 0;
+    let styleIndex = 0;
+    let currentColor = this.colors[colorIndex++];
+    this.styles[styleIndex++] = currentColor;
+    let currentRank = this.ranking[0].rank;
+    for (let index = 1; index < this.ranking.length; index++) {
+      if (currentRank != this.ranking[index].rank) {
+        currentColor = this.colors[colorIndex++];
+      }
+      this.styles[styleIndex++] = currentColor;
+      currentRank = this.ranking[index].rank;
+      if (colorIndex == this.colors.length) {
+        colorIndex = 0;
+      }
+    }
   }
 
   resetChartData() {

@@ -1,0 +1,31 @@
+<section class="content">
+  <div class="content-header">
+    <h1>Détails {{ ranking[0].team.name }}</h1>
+  </div>
+  <div class="notification">
+    <div class="error-message" *ngIf="error$ | async as error">
+      <p class="m-0">{{ error }}</p>
+    </div>
+    <div class="info-message" *ngIf="message$ | async as message">
+      <p class="m-0">{{ message }}</p>
+    </div>
+  </div>
+  <div
+    *ngIf="loading$ | async; else content"
+    class="w-100 my-5 d-flex justify-content-center"
+  >
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  <ng-template #content>
+    <ul class="stage-list">
+      <li class="stage-item" *ngFor="let team of ranking; index as i">
+        <div class="stage-details">
+          <span class="stage-number">{{ team.stage.name }}:</span>
+          <span class="stage-name"
+            ><span class="me-2">{{ team.score }}</span> points</span
+          >
+        </div>
+      </li>
+    </ul>
+  </ng-template>
+</section>

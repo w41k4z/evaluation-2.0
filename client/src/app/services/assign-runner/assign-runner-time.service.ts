@@ -37,13 +37,12 @@ export class AssignRunnerTimeService {
     );
   }
 
-  assign(stageRunnersId: string, startTime: string, endTime: string) {
+  assign(stageRunnersId: string, endTime: string) {
     this.loadingSubject.next(true);
     return this.http
       .post(`${env.api}/api/v1/stages/assign-time`, {
-        stageRunnersId,
-        startTime,
-        endTime,
+        stageRunnersId: stageRunnersId,
+        arrivalTime: endTime,
       })
       .pipe(
         tap((response: any) => {

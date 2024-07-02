@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="notification">
+    <div class="error-message" *ngIf="error$ | async as error">
+      <p class="m-0">{{ error }}</p>
+    </div>
+    <div class="info-message" *ngIf="message$ | async as message">
+      <p class="m-0">{{ message }}</p>
+    </div>
+  </div>
+  <div
+    *ngIf="loading$ | async"
+    class="w-100 my-5 d-flex justify-content-center"
+  >
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  <section class="mb-5">
+    <h4 class="text-center">{{ ranking[0].stage.name }}</h4>
+    <table class="mb-5 table table-borderless ranking-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Equipe</th>
+          <th>Coureur</th>
+          <th>Genre</th>
+          <th>Chrono</th>
+          <th>Pénalité</th>
+          <th>Temps final</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let runner of ranking">
+          <td class="rank-number">{{ runner.rank }}.</td>
+          <td>{{ runner.runner.team.name }}</td>
+          <td>{{ runner.runner.name }}</td>
+          <td>{{ runner.runner.gender == 1 ? "M" : "F" }}</td>
+          <td>{{ runner.chrono }}</td>
+          <td>{{ runner.penalty }}</td>
+          <td>{{ runner.finalChrono }}</td>
+          <td>{{ runner.score }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

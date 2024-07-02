@@ -8,9 +8,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import proj.eval.app.exception.CategoryException;
-import proj.eval.app.model.Category;
-import proj.eval.app.model.Runner;
-import proj.eval.app.repository.CategoryRepository;
+import proj.eval.app.model.postgres.Category;
+import proj.eval.app.model.postgres.Runner;
+import proj.eval.app.repository.postgres.CategoryRepository;
 import proj.eval.app.spec.EntitySpecification;
 import proj.eval.app.util.ManualConnection;
 

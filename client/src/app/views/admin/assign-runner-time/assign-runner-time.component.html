@@ -27,17 +27,13 @@
   </div>
   <div class="mt-5" *ngIf="stageRunners.length > 0">
     <div class="input-group mb-3">
-      <span class="input-group-text">Départ</span>
+      <span class="input-group-text">Arrivé</span>
       <input
-        type="time"
+        type="datetime-local"
         class="form-control"
-        [(ngModel)]="startTime"
+        [(ngModel)]="endTime"
         step="1"
       />
-    </div>
-    <div class="input-group mb-3">
-      <span class="input-group-text">Arrivé</span>
-      <input type="time" class="form-control" [(ngModel)]="endTime" step="1" />
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text">Choisissez le coureur</span>

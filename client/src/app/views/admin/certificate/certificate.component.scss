@@ -7,18 +7,18 @@ section {
     justify-content: center;
     align-items: center;
     font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
 }
 
 .certificate {
     width: 80%;
     padding: 20px;
     border: 10px solid #2e6da4;
-    background-color: white;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-    background-image: url('../../../../assets/images/bg.jpg');
+    background-image: url('../../../../assets/images/certificate.png');
     background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .header h1 {
@@ -43,4 +43,8 @@ section {
     margin-top: 40px;
     font-size: 1.2em;
     color: #666;
+}
+
+.content .desc {
+    font-size: smaller;
 }

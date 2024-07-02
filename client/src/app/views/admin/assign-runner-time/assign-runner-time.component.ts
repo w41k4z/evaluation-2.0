@@ -11,7 +11,6 @@ import { AssignRunnerTimeService } from '../../../services/assign-runner/assign-
 })
 export class AssignRunnerTimeComponent {
   selectedStage: string = '';
-  startTime: string = '';
   endTime: string = '';
   selectedRunner: string = '';
   stageRunners: StageRunner[] = [];
@@ -40,14 +39,13 @@ export class AssignRunnerTimeComponent {
   }
 
   submit() {
-    if (this.startTime && this.endTime && this.selectedRunner) {
+    if (this.endTime && this.selectedRunner) {
       this.service
-        .assign(this.selectedRunner, this.startTime, this.endTime)
+        .assign(this.selectedRunner, this.endTime.replace('T', ' '))
         .subscribe(() => {
           this.stageRunners = [];
           this.selectedStage = '';
           this.selectedRunner = '';
-          this.startTime = '';
           this.endTime = '';
         });
     }

@@ -7,34 +7,33 @@
       <p class="m-0">{{ message }}</p>
     </div>
   </div>
-  <h2>Assigné vos coureurs:</h2>
-  <section>
-    <div class="form-row" *ngFor="let row of teamRunners; index as i">
-      <label for="stageSelect{{ i }}">Stage:</label>
-      <select
-        id="stageSelect{{ i }}"
-        [(ngModel)]="selectedStage"
-        [disabled]="i != 0"
-      >
-        <option *ngFor="let stage of stages" value="{{ stage.id }}">
-          {{ stage.name }}
-        </option>
-      </select>
-      <label for="runnerSelect{{ i }}">Runner:</label>
-      <select id="runnerSelect{{ i }}" [(ngModel)]="teamRunners[i].runnerId">
-        <option *ngFor="let runner of runners" value="{{ runner.id }}">
-          {{ runner.name }}
-        </option>
-      </select>
-      <button
-        *ngIf="i == teamRunners.length - 1"
-        type="button"
-        class="add-row-btn"
-        (click)="addRow()"
-      >
-        Ajouter
+  <section class="mb-5" *ngFor="let stage of stages; index as i">
+    <h2>
+      {{ stage.stage.name }} ({{ stage.stage.pathLength }}km) -
+      {{ stage.stage.runnersPerTeam }} coureur(s)
+    </h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Chrono</th>
+          <th>Pénalité</th>
+          <th>Temps final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let runner of stage.runners">
+          <td>{{ runner.runner.name }}</td>
+          <td>{{ runner.chrono }}</td>
+          <td>{{ runner.penalty }}</td>
+          <td>{{ runner.finalChrono }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-secondary" (click)="openAddDialog(i)">
+        Ajouter coureur
       </button>
     </div>
   </section>
-  <button type="submit" class="submit-btn" (click)="submit()">Valider</button>
 </div>

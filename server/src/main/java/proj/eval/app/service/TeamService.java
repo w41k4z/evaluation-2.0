@@ -2,8 +2,8 @@ package proj.eval.app.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import proj.eval.app.model.Team;
-import proj.eval.app.repository.TeamRepository;
+import proj.eval.app.model.postgres.Team;
+import proj.eval.app.repository.postgres.TeamRepository;
 
 @Service
 public class TeamService {

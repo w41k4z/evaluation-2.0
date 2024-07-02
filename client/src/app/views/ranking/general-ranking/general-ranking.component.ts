@@ -39,5 +39,6 @@ export class GeneralRankingComponent {
         }
       }
     }
+    this.groupedRanking.push(current);
   }
 }

@@ -34,6 +34,9 @@ import { PenaltyAssignationComponent } from './views/admin/penalty-assignation/p
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { MatDialogActions } from '@angular/material/dialog';
 import { AssignationDialogComponent } from './views/admin/penalty-assignation/assignation-dialog/assignation-dialog.component';
+import { FormDialogComponent } from './views/team/assign-runner/form-dialog/form-dialog.component';
+import { StageGeneralRankingComponent } from './views/ranking/stage-general-ranking/stage-general-ranking.component';
+import { TeamDetailsRankingComponent } from './views/ranking/team-details-ranking/team-details-ranking.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { AssignationDialogComponent } from './views/admin/penalty-assignation/as
     PenaltyAssignationComponent,
     DeleteDialogComponent,
     AssignationDialogComponent,
+    FormDialogComponent,
+    StageGeneralRankingComponent,
+    TeamDetailsRankingComponent,
   ],
   imports: [
     BrowserModule,

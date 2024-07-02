@@ -37,13 +37,10 @@ export class AssignRunnerService {
     );
   }
 
-  assign(stageId: string, teamRunners: { runnerId: string }[]) {
+  assign(stageId: string, runnerId: string) {
     this.loadingSubject.next(true);
     return this.http
-      .post(
-        `${env.api}/api/v1/stages/${stageId}/assign`,
-        teamRunners.map((runner) => runner.runnerId)
-      )
+      .post(`${env.api}/api/v1/stages/assign/${stageId}`, [runnerId])
       .pipe(
         tap((response: any) => {
           this.loadingSubject.next(false);
@@ -61,5 +58,26 @@ export class AssignRunnerService {
           return throwError(() => error);
         })
       );
+  }
+
+  teamRunners(stageId: string) {
+    this.loadingSubject.next(true);
+    return this.http.get(`${env.api}/api/v1/team-runners/${stageId}`).pipe(
+      tap((response: any) => {
+        this.loadingSubject.next(false);
+        this.messageSubject.next(response.message);
+        setTimeout(() => {
+          this.messageSubject.next(null);
+        }, 5000);
+      }),
+      catchError((error) => {
+        this.loadingSubject.next(false);
+        this.errorSubject.next(error.error.errors[0]);
+        setTimeout(() => {
+          this.errorSubject.next(null);
+        }, 5000);
+        return throwError(() => error);
+      })
+    );
   }
 }

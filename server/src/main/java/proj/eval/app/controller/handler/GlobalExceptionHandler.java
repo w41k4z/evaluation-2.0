@@ -49,12 +49,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ApiResponse> handleGeneralException(Exception ex) {
     ApiResponse response = new ApiResponse();
     response.setErrors(
-      List.of(
-        "Something went wrong in the server.\nDetails:\n" +
-        ex.getClass().getSimpleName() +
-        " -> " +
-        ex.getMessage()
-      )
+      List.of(ex.getClass().getSimpleName() + " -> " + ex.getMessage())
     );
     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
   }

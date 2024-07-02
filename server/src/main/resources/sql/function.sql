@@ -2,6 +2,7 @@ CREATE OR REPLACE PROCEDURE reinitialize()
 LANGUAGE plpgsql
 AS $$
 BEGIN
+    EXECUTE 'DELETE FROM team_penalty';
     EXECUTE 'DELETE FROM runners_times';
     EXECUTE 'DELETE FROM stage_runners';
     EXECUTE 'DELETE FROM stages';
@@ -19,11 +20,12 @@ BEGIN
     EXECUTE 'ALTER SEQUENCE stage_runners_id_seq RESTART WITH 1';
     EXECUTE 'ALTER SEQUENCE stages_id_seq RESTART WITH 1';
     EXECUTE 'ALTER SEQUENCE user_roles_id_seq RESTART WITH 1';
+    EXECUTE 'ALTER SEQUENCE team_penalty_id_seq RESTART WITH 1';
     EXECUTE 'ALTER SEQUENCE users_id_seq RESTART WITH 2';
     EXECUTE 'INSERT INTO roles values (1, ''ADMIN'', 0), (2, ''TEAM'', 0)';
     EXECUTE 'INSERT INTO users values (''USR000001'', ''Admin'', ''admin@gmail.com'', ''$2a$10$BgGhMLoUAy0C3zNZPDtaW.jNGjKRJ3Ni136uuuSWwdwX1kYoQEwQW'', 0)';
     EXECUTE 'INSERT INTO user_roles values (DEFAULT, ''USR000001'', 1)';
-    EXECUTE 'INSERT INTO categories values (DEFAULT, ''Homme'', 0), (DEFAULT, ''Femme'', 0), (DEFAULT, ''Junior'', 0), (DEFAULT, ''Senior'', 0)';
+    EXECUTE 'INSERT INTO categories values (DEFAULT, ''Homme'', 0), (DEFAULT, ''Femme'', 0), (DEFAULT, ''Junior'', 0)';
 END;
 $$;
 
@@ -44,7 +46,7 @@ BEGIN
     EXECUTE 'INSERT INTO user_roles(users_id, roles_id) SELECT users.id, 2 FROM imported_results JOIN users ON imported_results.team = users.username ON CONFLICT DO NOTHING';
     EXECUTE 'INSERT INTO runners(name, team_id, number, gender, birth_date, state) SELECT imported_results.runner_name, users.id, imported_results.runner_number, imported_results.runner_gender, imported_results.runner_birth_date, 0 FROM imported_results JOIN users ON users.name = imported_results.team ON CONFLICT DO NOTHING';
     EXECUTE 'INSERT INTO stage_runners(stage_id, runner_id) SELECT stages.id, runners.id FROM imported_results JOIN stages ON stages.rank = imported_results.stage_rank JOIN runners ON runners.name = imported_results.runner_name AND runners.number = imported_results.runner_number ON CONFLICT DO NOTHING';
-    EXECUTE 'INSERT INTO runners_times(stage_runners_id, arrival_time) SELECT stage_runners.id, imported_results.arrival_time FROM imported_results JOIN stages ON stages.rank = imported_results.stage_rank JOIN runners ON runners.name = imported_results.runner_name AND runners.number = imported_results.runner_number JOIN stage_runners ON stages.id = stage_runners.stage_id AND runners.id = stage_runners.runner_id';
+    EXECUTE 'INSERT INTO runners_times(stage_runners_id, arrival_time) SELECT stage_runners.id, imported_results.arrival_time FROM imported_results JOIN stages ON stages.rank = imported_results.stage_rank JOIN runners ON runners.name = imported_results.runner_name AND runners.number = imported_results.runner_number JOIN stage_runners ON stages.id = stage_runners.stage_id AND runners.id = stage_runners.runner_id WHERE stages.start_date + stages.start_time < imported_results.arrival_time';
     EXECUTE 'TRUNCATE TABLE imported_results';
 END;
 $$;

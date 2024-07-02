@@ -1,7 +1,6 @@
 <section class="content">
   <div class="content-header">
     <h1>Liste des Étapes</h1>
-    <button class="add-btn" *ngIf="profile.isAdmin()">Ajouter une Étape</button>
   </div>
   <div class="notification">
     <div class="error-message" *ngIf="error$ | async as error">
@@ -34,7 +33,12 @@
             <i class="ms-1 bi bi-people"></i>
           </span>
         </div>
-        <button class="edit-btn" *ngIf="profile.isAdmin()">Modifier</button>
+        <button
+          class="btn btn-primary"
+          [routerLink]="['/app/stage-ranking', stage.id]"
+        >
+          Résultat
+        </button>
       </li>
     </ul>
   </ng-template>

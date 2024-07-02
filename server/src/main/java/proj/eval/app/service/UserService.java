@@ -9,10 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import proj.eval.app.exception.RoleException;
 import proj.eval.app.exception.UserException;
-import proj.eval.app.model.auth.Role;
-import proj.eval.app.model.auth.User;
-import proj.eval.app.repository.RoleRepository;
-import proj.eval.app.repository.UserRepository;
+import proj.eval.app.model.postgres.auth.Role;
+import proj.eval.app.model.postgres.auth.User;
+import proj.eval.app.repository.postgres.RoleRepository;
+import proj.eval.app.repository.postgres.UserRepository;
 import proj.eval.app.spec.EntitySpecification;
 
 @Service

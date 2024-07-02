@@ -16,6 +16,8 @@ import { ImportationComponent } from './views/admin/importation/importation.comp
 import { StageAssignationComponent } from './views/team/stage-assignation/stage-assignation.component';
 import { CertificateComponent } from './views/admin/certificate/certificate.component';
 import { PenaltyAssignationComponent } from './views/admin/penalty-assignation/penalty-assignation.component';
+import { StageGeneralRankingComponent } from './views/ranking/stage-general-ranking/stage-general-ranking.component';
+import { TeamDetailsRankingComponent } from './views/ranking/team-details-ranking/team-details-ranking.component';
 
 const routes: Routes = [
   {
@@ -30,6 +32,14 @@ const routes: Routes = [
       {
         path: 'general-ranking',
         component: RunnerRankingComponent,
+      },
+      {
+        path: 'stage-ranking/:stageId',
+        component: StageGeneralRankingComponent,
+      },
+      {
+        path: 'team-ranking-details/:teamId',
+        component: TeamDetailsRankingComponent,
       },
       {
         path: 'general-ranking-per-stage',

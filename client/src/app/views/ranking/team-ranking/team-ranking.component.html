@@ -33,24 +33,33 @@
   >
     <div class="spinner-border text-primary" role="status"></div>
   </div>
-  <table class="table table-borderless ranking-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Equipe</th>
-        <th>Score totale</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let team of ranking">
-        <td class="rank-number">{{ team.rank }}.</td>
-        <td>{{ team.team.name }}</td>
-        <td>{{ team.totalScore }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-center">
-    <section class="stat">
+  <div class="row align-items-center">
+    <table class="col-6 table table-borderless ranking-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Equipe</th>
+          <th>Score totale</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of ranking; index as i">
+          <td class="rank-number">{{ team.rank }}.</td>
+          <td>{{ team.team.name }}</td>
+          <td class="{{ styles[i] }}">{{ team.totalScore }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              [routerLink]="['/app/team-ranking-details', team.team.id]"
+            >
+              Détails
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <section class="stat col-6">
       <canvas
         baseChart
         [data]="pieChartData"

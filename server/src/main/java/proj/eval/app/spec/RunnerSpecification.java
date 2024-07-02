@@ -1,7 +1,7 @@
 package proj.eval.app.spec;
 
 import org.springframework.data.jpa.domain.Specification;
-import proj.eval.app.model.Runner;
+import proj.eval.app.model.postgres.Runner;
 
 public class RunnerSpecification {
 

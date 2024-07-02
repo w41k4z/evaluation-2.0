@@ -39,7 +39,7 @@ CREATE TABLE runners (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     team_id VARCHAR(9) REFERENCES users(id) NOT NULL,
-    number INTEGER NOT NULL,
+    number VARCHAR(50) NOT NULL,
     gender INTEGER NOT NULL,
     birth_date DATE NOT NULL,
     state INTEGER NOT NULL,
@@ -78,6 +78,13 @@ CREATE TABLE runners_times (
     arrival_time TIMESTAMP NOT NULL
 );
 
+CREATE TABLE team_penalty (
+    id SERIAL PRIMARY KEY,
+    stage_id BIGINT REFERENCES stages(id) NOT NULL,
+    team_id VARCHAR(9) REFERENCES users(id) NOT NULL,
+    penalty TIME NOT NULL
+);
+
 CREATE TABLE imported_stages (
     rank INTEGER UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
@@ -89,17 +96,10 @@ CREATE TABLE imported_stages (
 
 CREATE TABLE imported_results (
     stage_rank INTEGER NOT NULL,
-    runner_number INTEGER NOT NULL,
+    runner_number VARCHAR(50) NOT NULL,
     runner_name VARCHAR(100) NOT NULL,
     runner_gender INTEGER NOT NULL,
     runner_birth_date DATE NOT NULL,
     team VARCHAR(50) NOT NULL,
     arrival_time TIMESTAMP NOT NULL
-);
-
-CREATE TABLE team_penalty (
-    id SERIAL PRIMARY KEY,
-    stage_id BIGINT REFERENCES stages(id) NOT NULL,
-    team_id VARCHAR(9) REFERENCES users(id) NOT NULL,
-    penalty TIME NOT NULL
 );

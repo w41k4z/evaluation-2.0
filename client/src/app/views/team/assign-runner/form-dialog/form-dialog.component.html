@@ -1,0 +1,20 @@
+<div class="assignation-dialog-content">
+  <h3 mat-dialog-title>Assigné un coureur</h3>
+  <main class="card card-body mt-2">
+    <div class="mb-3">
+      <div class="form-group">
+        <label for="stage">Coureur</label>
+        <select class="form-select" id="stage" [(ngModel)]="runnerId" required>
+          <option *ngFor="let runner of props.runners" value="{{ runner.id }}">
+            {{ runner.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </main>
+  <section class="card-footer d-flex mt-2 justify-content-end">
+    <button class="btn btn-primary" (click)="confirm()" cdkFocusInitial>
+      Assigner
+    </button>
+  </section>
+</div>

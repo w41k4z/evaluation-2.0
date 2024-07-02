@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import proj.eval.app.model.importation.ImportedResult;
+import proj.eval.app.model.postgres.importation.ImportedResult;
 
 @Service
 public class ImportedResultService {
@@ -27,15 +27,17 @@ public class ImportedResultService {
     for (ImportedResult importedResult : importedResults) {
       sql.append(importedResult.getStageRank());
       sql.append(",");
-      sql.append(importedResult.getRunnerNumber());
+      sql.append(importedResult.getRunnerNumber().replaceAll("'", "''"));
       sql.append(",");
-      sql.append("'" + importedResult.getRunnerName() + "'");
+      sql.append(
+        "'" + importedResult.getRunnerName().replaceAll("'", "''") + "'"
+      );
       sql.append(",");
       sql.append(ImportedResult.gender(importedResult.getRunnerStringGender()));
       sql.append(",");
       sql.append("'" + importedResult.getRunnerBirthDate() + "'");
       sql.append(",");
-      sql.append("'" + importedResult.getTeam() + "'");
+      sql.append("'" + importedResult.getTeam().replaceAll("'", "''") + "'");
       sql.append(",");
       sql.append("'" + importedResult.getArrivalTime().toString() + "'");
       sql.append("), (");
