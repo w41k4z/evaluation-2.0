@@ -50,6 +50,7 @@
           <td class="{{ styles[i] }}">{{ team.totalScore }}</td>
           <td>
             <button
+              *ngIf="filter == 'All'"
               class="btn btn-primary"
               [routerLink]="['/app/team-ranking-details', team.team.id]"
             >

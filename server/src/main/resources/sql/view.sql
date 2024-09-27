@@ -284,7 +284,6 @@ ORDER BY
     final_ranking.stage_id
 ;
 
--- VERIFY: The GROUP BY clause is not necessary
 -- global team ranking (all stages, with category)
 -- ranked by score
 CREATE VIEW team_category_ranking AS
@@ -294,7 +293,7 @@ SELECT
     ) AS id,
     DENSE_RANK() OVER (
         PARTITION BY final_ranking.category_id
-        ORDER BY SUM(final_ranking.total_score) DESC
+        ORDER BY final_ranking.total_score DESC
     ) AS rank,
     final_ranking.team_id,
     final_ranking.category_id,

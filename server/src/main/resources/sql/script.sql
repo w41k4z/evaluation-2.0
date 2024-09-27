@@ -5,18 +5,22 @@ CREATE TABLE roles (
     state INTEGER NOT NULL
 );
 
+-- user/team
 CREATE TABLE users (
     id VARCHAR(9) PRIMARY KEY DEFAULT generate_user_id(),
     name VARCHAR(50) NOT NULL UNIQUE,
     username VARCHAR(50) UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    state INTEGER NOT NULL
+    state INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE user_roles (
     id SERIAL PRIMARY KEY,
     users_id VARCHAR(9) REFERENCES users(id) NOT NULL,
     roles_id BIGINT REFERENCES roles(id) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_user_role UNIQUE(users_id, roles_id)
 );
 
@@ -26,12 +30,17 @@ CREATE TABLE user_roles (
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
-    state INTEGER NOT NULL
+    state INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE points (
-    rank INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    rank INTEGER UNIQUE,
     score INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CHECK(rank > 0 AND score >= 0)
 );
 
@@ -43,6 +52,8 @@ CREATE TABLE runners (
     gender INTEGER NOT NULL,
     birth_date DATE NOT NULL,
     state INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_runner UNIQUE (team_id, number)
 );
 
@@ -50,6 +61,7 @@ CREATE TABLE runner_categories (
     id SERIAL PRIMARY KEY,
     runner_id BIGINT REFERENCES runners(id) NOT NULL,
     category_id BIGINT REFERENCES categories(id) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_runner_category UNIQUE(runner_id, category_id)
 );
 
@@ -62,6 +74,8 @@ CREATE TABLE stages (
     path_length DOUBLE PRECISION NOT NULL,
     runners_per_team INTEGER NOT NULL,
     state INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CHECK(rank > 0 AND path_length > 0 AND runners_per_team > 0)
 );
 
@@ -69,20 +83,25 @@ CREATE TABLE stage_runners (
     id SERIAL PRIMARY KEY,
     stage_id BIGINT REFERENCES stages(id) NOT NULL,
     runner_id BIGINT REFERENCES runners(id) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_stage_runner UNIQUE (stage_id, runner_id)
 );
 
 CREATE TABLE runners_times (
     id SERIAL PRIMARY KEY,
     stage_runners_id BIGINT REFERENCES stage_runners(id) UNIQUE NOT NULL, -- UNIQUE because it is the combination of the runner_id and the stage_id
-    arrival_time TIMESTAMP NOT NULL
+    arrival_time TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE team_penalty (
     id SERIAL PRIMARY KEY,
     stage_id BIGINT REFERENCES stages(id) NOT NULL,
     team_id VARCHAR(9) REFERENCES users(id) NOT NULL,
-    penalty TIME NOT NULL
+    penalty TIME NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE imported_stages (
