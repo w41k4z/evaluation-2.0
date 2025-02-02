@@ -8,8 +8,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FullPageLayoutComponent } from './layouts/full-page-layout/full-page-layout.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { TestComponent } from './views/test/test.component';
-import { MapComponent } from './views/map/map.component';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -46,7 +44,6 @@ import { TeamDetailsRankingComponent } from './views/ranking/team-details-rankin
     FullPageLayoutComponent,
     AppLayoutComponent,
     TestComponent,
-    MapComponent,
     PaginationComponent,
     SignInComponent,
     StageListComponent,
@@ -70,7 +67,6 @@ import { TeamDetailsRankingComponent } from './views/ranking/team-details-rankin
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LeafletModule,
     FormsModule,
     BaseChartDirective,
     MatDialogActions,

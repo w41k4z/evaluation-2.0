@@ -18,8 +18,8 @@ public class CreateRunnerRequest {
   @NotBlank(message = "Team id is required")
   private String teamId;
 
-  @NotBlank(message = "Number is required")
-  private String number;
+  @NotNull(message = "Number is required")
+  private Integer number;
 
   @NotNull(message = "Gender is required")
   private Integer gender;

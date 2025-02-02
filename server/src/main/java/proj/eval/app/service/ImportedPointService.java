@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import proj.eval.app.model.postgres.importation.ImportedPoint;
+import proj.eval.app.model.importation.ImportedPoint;
 
 @Service
 public class ImportedPointService {

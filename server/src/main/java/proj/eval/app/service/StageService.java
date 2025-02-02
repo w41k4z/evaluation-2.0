@@ -8,9 +8,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import proj.eval.app.exception.StageException;
-import proj.eval.app.model.postgres.Stage;
-import proj.eval.app.model.postgres.TeamRunner;
-import proj.eval.app.repository.postgres.StageRepository;
+import proj.eval.app.model.Stage;
+import proj.eval.app.model.TeamRunner;
+import proj.eval.app.model.auth.User;
+import proj.eval.app.repository.StageRepository;
 import proj.eval.app.spec.EntitySpecification;
 
 @Service
@@ -20,17 +21,20 @@ public class StageService {
   private TeamRunnerService teamRunnerService;
   private StageRunnerService stageRunnerService;
   private RunnersTimeService runnersTimeService;
+  private UserService userService;
 
   public StageService(
     StageRepository repository,
     TeamRunnerService teamRunnerService,
     StageRunnerService stageRunnerService,
-    RunnersTimeService runnersTimeService
+    RunnersTimeService runnersTimeService,
+    UserService userService
   ) {
     this.repository = repository;
     this.teamRunnerService = teamRunnerService;
     this.stageRunnerService = stageRunnerService;
     this.runnersTimeService = runnersTimeService;
+    this.userService = userService;
   }
 
   public Stage get(Long id) {
@@ -92,10 +96,11 @@ public class StageService {
     Long stageId,
     List<Long> runnerIds
   ) {
+    User user = this.userService.findByUsername(teamUsername);
     Stage stage = this.get(stageId);
     Integer limit = stage.getRunnersPerTeam();
     List<TeamRunner> existingRunners = teamRunnerService.runners(
-      teamUsername,
+      user.getId(),
       stage.getId()
     );
     // No need to check if the runner belongs to the team as there will only be runners from the current logged team shown in the UI

@@ -13,25 +13,5 @@
     "name": "cors.allowed.origin.pattern",
     "type": "java.lang.String",
     "description": "Allowed pattern for CORS security"
-  },
-  {
-    "name": "spring.datasource.mysql.driver-class-name",
-    "type": "java.lang.String",
-    "description": "Driver class name for MySQL"
-  },
-  {
-    "name": "spring.datasource.mysql.url",
-    "type": "java.lang.String",
-    "description": "URL for MySQL"
-  },
-  {
-    "name": "spring.datasource.mysql.username",
-    "type": "java.lang.String",
-    "description": "Username for MySQL"
-  },
-  {
-    "name": "spring.datasource.mysql.password",
-    "type": "java.lang.String",
-    "description": "Password for MySQL"
   }
 ]}

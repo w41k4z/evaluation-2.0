@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import proj.eval.app.exception.UserException;
-import proj.eval.app.model.postgres.auth.Role;
-import proj.eval.app.model.postgres.auth.User;
-import proj.eval.app.repository.postgres.UserRepository;
+import proj.eval.app.model.auth.Role;
+import proj.eval.app.model.auth.User;
+import proj.eval.app.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import proj.eval.app.enumeration.Authority;
 import proj.eval.app.exception.RunnerException;
-import proj.eval.app.model.postgres.Runner;
-import proj.eval.app.model.postgres.auth.User;
-import proj.eval.app.repository.postgres.RunnerRepository;
+import proj.eval.app.model.Runner;
+import proj.eval.app.model.auth.User;
+import proj.eval.app.repository.RunnerRepository;
 import proj.eval.app.spec.EntitySpecification;
 import proj.eval.app.spec.RunnerSpecification;
 
@@ -58,7 +58,7 @@ public class RunnerService {
   public Runner create(
     String name,
     String teamId,
-    String number,
+    Integer number,
     Integer gender,
     Date birthDate
   ) {
@@ -78,7 +78,7 @@ public class RunnerService {
     Long id,
     String name,
     String teamId,
-    String number,
+    Integer number,
     Integer gender,
     Date birthDate
   ) {

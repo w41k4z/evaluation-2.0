@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import proj.eval.app.exception.RoleException;
-import proj.eval.app.model.postgres.auth.User;
+import proj.eval.app.model.auth.User;
 import proj.eval.app.request.CreateUserRequest;
 import proj.eval.app.service.AdminService;
 import proj.eval.app.service.CategoryService;

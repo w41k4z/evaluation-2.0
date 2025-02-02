@@ -3,10 +3,10 @@ package proj.eval.app.service;
 import java.sql.Time;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import proj.eval.app.model.postgres.Stage;
-import proj.eval.app.model.postgres.TeamPenalty;
-import proj.eval.app.model.postgres.auth.User;
-import proj.eval.app.repository.postgres.TeamPenaltyRepository;
+import proj.eval.app.model.Stage;
+import proj.eval.app.model.TeamPenalty;
+import proj.eval.app.model.auth.User;
+import proj.eval.app.repository.TeamPenaltyRepository;
 
 @Service
 public class TeamPenaltyService {

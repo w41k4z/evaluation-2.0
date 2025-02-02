@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_DB: true_evaluation
+      POSTGRES_USER: w41k4z
+      POSTGRES_PASSWORD: w41k4z
+    volumes:
+      - utr_data:/var/lib/postgresql/data
+    networks:
+      - network
+
+  server:
+    image: utr-server:latest
+    container_name: spring-server
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - db
+    networks:
+      - network
+
+  client:
+    image: utr-client:latest
+    container_name: angular-client
+    restart: always
+    depends_on:
+      - server
+    networks:
+      - network
+  
+  proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"  # Expose Nginx to localhost
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - server
+      - client
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  utr_data:
+    driver: local

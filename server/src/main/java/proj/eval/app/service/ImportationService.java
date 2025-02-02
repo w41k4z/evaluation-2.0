@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import proj.eval.app.model.postgres.importation.ImportedPoint;
-import proj.eval.app.model.postgres.importation.ImportedResult;
-import proj.eval.app.model.postgres.importation.ImportedStage;
+import proj.eval.app.model.importation.ImportedPoint;
+import proj.eval.app.model.importation.ImportedResult;
+import proj.eval.app.model.importation.ImportedStage;
 import proj.eval.app.util.ManualConnection;
 
 @Service

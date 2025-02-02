@@ -2,8 +2,8 @@ package proj.eval.app.service;
 
 import java.sql.Timestamp;
 import org.springframework.stereotype.Service;
-import proj.eval.app.model.postgres.RunnersTime;
-import proj.eval.app.repository.postgres.RunnersTimeRepository;
+import proj.eval.app.model.RunnersTime;
+import proj.eval.app.repository.RunnersTimeRepository;
 
 @Service
 public class RunnersTimeService {
