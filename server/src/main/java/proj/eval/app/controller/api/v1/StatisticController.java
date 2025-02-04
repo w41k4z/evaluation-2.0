@@ -32,10 +32,30 @@ public class StatisticController {
     return ResponseEntity.ok(response);
   }
 
+  @GetMapping("/runner/general/stage/{stageId}")
+  public ResponseEntity<ApiResponse> generalRankingByStage(
+    @PathVariable String stageId
+  ) {
+    ApiResponse response = new ApiResponse();
+    response.setPayload(
+      this.rankingService.runnerRankingByStage(Long.parseLong(stageId))
+    );
+    return ResponseEntity.ok(response);
+  }
+
   @GetMapping("/team/general/{filter}")
   public ResponseEntity<ApiResponse> teamRanking(@PathVariable String filter) {
     ApiResponse response = new ApiResponse();
     response.setPayload(this.rankingService.teamRanking(filter));
+    return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("/team/general/details/{teamId}")
+  public ResponseEntity<ApiResponse> teamRankingDetails(
+    @PathVariable String teamId
+  ) {
+    ApiResponse response = new ApiResponse();
+    response.setPayload(this.rankingService.rankingDetailsByTeam(teamId));
     return ResponseEntity.ok(response);
   }
 }

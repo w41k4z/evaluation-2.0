@@ -1,11 +1,11 @@
 package proj.eval.app.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,5 +35,10 @@ public class TeamRunner {
   @JoinColumn(name = "runner_id")
   private Runner runner;
 
-  private Timestamp chrono;
+  private String chrono;
+
+  @Column(name = "final_chrono")
+  private String finalChrono;
+
+  private String penalty;
 }

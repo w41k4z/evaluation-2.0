@@ -1,5 +1,6 @@
 package proj.eval.app.model.stat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -34,6 +35,11 @@ public class GeneralRanking {
   private Stage stage;
 
   private String chrono;
+
+  @Column(name = "final_chrono")
+  private String finalChrono;
+
+  private String penalty;
 
   private Integer score;
 }

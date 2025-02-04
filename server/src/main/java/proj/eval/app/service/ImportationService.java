@@ -25,11 +25,10 @@ public class ImportationService {
   private ImportedResultService importedResultService;
 
   public ImportationService(
-    ManualConnection manualConnection,
-    ImportedPointService importedPointService,
-    ImportedStageService importedStageService,
-    ImportedResultService importedResultService
-  ) {
+      ManualConnection manualConnection,
+      ImportedPointService importedPointService,
+      ImportedStageService importedStageService,
+      ImportedResultService importedResultService) {
     this.manualConnection = manualConnection;
     this.importedPointService = importedPointService;
     this.importedStageService = importedStageService;
@@ -37,31 +36,26 @@ public class ImportationService {
   }
 
   public void importStagesAndResults(
-    MultipartFile stageFile,
-    MultipartFile resultFile
-  ) throws IOException, SQLException {
+      MultipartFile stageFile,
+      MultipartFile resultFile) throws IOException, SQLException {
     Connection connection = manualConnection.getConnection();
     connection.setAutoCommit(false);
 
     Reader stageReader = new BufferedReader(
-      new InputStreamReader(stageFile.getInputStream())
-    );
+        new InputStreamReader(stageFile.getInputStream()));
     Reader resultReader = new BufferedReader(
-      new InputStreamReader(resultFile.getInputStream())
-    );
+        new InputStreamReader(resultFile.getInputStream()));
 
     CsvToBean<ImportedStage> importedStage = new CsvToBeanBuilder<ImportedStage>(
-      stageReader
-    )
-      .withType(ImportedStage.class)
-      .withSeparator(',')
-      .build();
+        stageReader)
+        .withType(ImportedStage.class)
+        .withSeparator(',')
+        .build();
     CsvToBean<ImportedResult> importedResult = new CsvToBeanBuilder<ImportedResult>(
-      resultReader
-    )
-      .withType(ImportedResult.class)
-      .withSeparator(',')
-      .build();
+        resultReader)
+        .withType(ImportedResult.class)
+        .withSeparator(',')
+        .build();
     List<ImportedStage> importedStages = importedStage.parse();
     List<ImportedResult> importedResults = importedResult.parse();
 
@@ -78,17 +72,15 @@ public class ImportationService {
   }
 
   public void importPoints(MultipartFile file)
-    throws IOException, SQLException {
+      throws IOException, SQLException {
     Connection connection = manualConnection.getConnection();
     Reader reader = new BufferedReader(
-      new InputStreamReader(file.getInputStream())
-    );
+        new InputStreamReader(file.getInputStream()));
     CsvToBean<ImportedPoint> importedPoint = new CsvToBeanBuilder<ImportedPoint>(
-      reader
-    )
-      .withType(ImportedPoint.class)
-      .withSeparator(',')
-      .build();
+        reader)
+        .withType(ImportedPoint.class)
+        .withSeparator(',')
+        .build();
     List<ImportedPoint> importedPoints = importedPoint.parse();
     this.importedPointService.insertAll(importedPoints, connection);
     connection.close();

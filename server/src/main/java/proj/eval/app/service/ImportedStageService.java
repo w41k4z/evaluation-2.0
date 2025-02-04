@@ -10,24 +10,21 @@ import proj.eval.app.model.importation.ImportedStage;
 public class ImportedStageService {
 
   public void importStages(
-    List<ImportedStage> importedStages,
-    Connection connection
-  ) throws SQLException {
+      List<ImportedStage> importedStages,
+      Connection connection) throws SQLException {
     this.insertAll(importedStages, connection);
     connection.createStatement().execute("CALL import_stages()");
   }
 
   public void insertAll(
-    List<ImportedStage> importedStages,
-    Connection connection
-  ) throws SQLException {
+      List<ImportedStage> importedStages,
+      Connection connection) throws SQLException {
     StringBuilder sql = new StringBuilder(
-      "INSERT INTO imported_stages(rank, name, path_length, runners_per_team, start_date, start_time) VALUES("
-    );
+        "INSERT INTO imported_stages(rank, name, path_length, runners_per_team, start_date, start_time) VALUES(");
     for (ImportedStage importedStage : importedStages) {
       sql.append(importedStage.getRank());
       sql.append(",");
-      sql.append("'" + importedStage.getName() + "'");
+      sql.append("'" + importedStage.getName().replaceAll("'", "''") + "'");
       sql.append(",");
       sql.append(importedStage.getPathLength());
       sql.append(",");

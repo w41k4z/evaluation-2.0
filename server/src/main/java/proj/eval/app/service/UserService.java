@@ -23,10 +23,9 @@ public class UserService {
   private RoleRepository roleRepository;
 
   public UserService(
-    PasswordEncoder passwordEncoder,
-    UserRepository repository,
-    RoleRepository roleRepository
-  ) {
+      PasswordEncoder passwordEncoder,
+      UserRepository repository,
+      RoleRepository roleRepository) {
     this.passwordEncoder = passwordEncoder;
     this.repository = repository;
     this.roleRepository = roleRepository;
@@ -41,11 +40,10 @@ public class UserService {
   }
 
   public User createUser(
-    String name,
-    String username,
-    String password,
-    String role
-  ) throws RoleException {
+      String name,
+      String username,
+      String password,
+      String role) throws RoleException {
     Optional<Role> userRole = roleRepository.findByName(role);
     if (userRole.isEmpty()) {
       throw new RoleException("Role `" + role + "` not found");

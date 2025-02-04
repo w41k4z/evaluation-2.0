@@ -17,21 +17,21 @@ public class ImportedStage {
   @CsvBindByName(column = "rang")
   private String rank;
 
-  @CsvBindByName(column = "nom")
+  @CsvBindByName(column = "etape")
   private String name;
 
-  @CsvBindByName(column = "km", locale = "fr-FR")
+  @CsvBindByName(column = "longueur", locale = "fr-FR")
   @CsvNumber("#0,0#")
   private Double pathLength;
 
-  @CsvBindByName(column = "nbcoureur")
+  @CsvBindByName(column = "nb coureur")
   private Integer runnersPerTeam;
 
-  @CsvBindByName(column = "date")
+  @CsvBindByName(column = "date départ")
   @CsvDate("dd/MM/yyyy")
   private Date startDate;
 
-  @CsvBindByName(column = "heure")
+  @CsvBindByName(column = "heure départ")
   @CsvDate("hh:mm:ss")
   private Time startTime;
 }

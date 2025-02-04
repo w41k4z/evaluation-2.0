@@ -31,7 +31,7 @@ public class Runner {
   @JoinColumn(name = "team_id")
   private User team;
 
-  private Integer number;
+  private String number;
 
   private Integer gender;
 

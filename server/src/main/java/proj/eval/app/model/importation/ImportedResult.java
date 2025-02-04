@@ -16,7 +16,7 @@ public class ImportedResult {
   private Integer stageRank;
 
   @CsvBindByName(column = "numero dossard")
-  private Integer runnerNumber;
+  private String runnerNumber;
 
   @CsvBindByName(column = "nom")
   private String runnerName;

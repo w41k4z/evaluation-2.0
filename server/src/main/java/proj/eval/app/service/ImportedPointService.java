@@ -10,12 +10,10 @@ import proj.eval.app.model.importation.ImportedPoint;
 public class ImportedPointService {
 
   public void insertAll(
-    List<ImportedPoint> importedPoints,
-    Connection connection
-  ) throws SQLException {
+      List<ImportedPoint> importedPoints,
+      Connection connection) throws SQLException {
     StringBuilder sql = new StringBuilder(
-      "INSERT INTO points(rank, score) VALUES("
-    );
+        "INSERT INTO points(rank, score) VALUES(");
     for (ImportedPoint importedPoint : importedPoints) {
       sql.append(importedPoint.getRank());
       sql.append(",");

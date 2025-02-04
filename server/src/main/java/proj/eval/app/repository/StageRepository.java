@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import proj.eval.app.model.Stage;
 
 public interface StageRepository
-  extends JpaRepository<Stage, Long>, JpaSpecificationExecutor<Stage> {}
+    extends JpaRepository<Stage, Long>, JpaSpecificationExecutor<Stage> {
+}

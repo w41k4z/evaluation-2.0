@@ -39,14 +39,13 @@ public class AdminController {
   private TeamPenaltyService teamPenaltyService;
 
   public AdminController(
-    AdminService adminService,
-    UserService userService,
-    CategoryService categoryService,
-    TeamService teamService,
-    StageService stageService,
-    RankingService rankingService,
-    TeamPenaltyService teamPenaltyService
-  ) {
+      AdminService adminService,
+      UserService userService,
+      CategoryService categoryService,
+      TeamService teamService,
+      StageService stageService,
+      RankingService rankingService,
+      TeamPenaltyService teamPenaltyService) {
     this.adminService = adminService;
     this.userService = userService;
     this.categoryService = categoryService;
@@ -58,9 +57,8 @@ public class AdminController {
 
   @GetMapping("/users")
   public ResponseEntity<ApiResponse> getUsers(
-    @RequestParam(value = "page", defaultValue = "0") int page,
-    @RequestParam(value = "size", defaultValue = "5") int size
-  ) {
+      @RequestParam(value = "page", defaultValue = "0") int page,
+      @RequestParam(value = "size", defaultValue = "5") int size) {
     ApiResponse response = new ApiResponse();
     response.setPayload(this.userService.getUsers(page, size));
     return new ResponseEntity<>(response, HttpStatus.OK);
@@ -87,24 +85,21 @@ public class AdminController {
 
   @PostMapping("/create/team")
   public ResponseEntity<ApiResponse> createTeam(
-    @RequestBody @Valid CreateUserRequest request
-  ) throws RoleException {
+      @RequestBody @Valid CreateUserRequest request) throws RoleException {
     ApiResponse response = new ApiResponse();
     response.setPayload(
-      this.userService.createUser(
-          request.getName(),
-          request.getUsername(),
-          request.getPassword(),
-          request.getRole()
-        )
-    );
+        this.userService.createUser(
+            request.getName(),
+            request.getUsername(),
+            request.getPassword(),
+            request.getRole()));
     response.setMessage("Team created successfully");
     return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 
   @GetMapping("/reinitialize")
   public ResponseEntity<ApiResponse> reinitializeDatabase()
-    throws SQLException {
+      throws SQLException {
     ApiResponse response = new ApiResponse();
     this.adminService.reinitializeDatabase();
     response.setMessage("Database reinitialized successfully");
@@ -121,7 +116,7 @@ public class AdminController {
 
   @GetMapping("/certificate/{filter}")
   public ResponseEntity<ApiResponse> certificate(@PathVariable String filter)
-    throws SQLException {
+      throws SQLException {
     ApiResponse response = new ApiResponse();
     User team = this.rankingService.certificate(filter);
     response.setPayload(team);

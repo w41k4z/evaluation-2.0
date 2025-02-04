@@ -7,7 +7,6 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FullPageLayoutComponent } from './layouts/full-page-layout/full-page-layout.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
-import { TestComponent } from './views/test/test.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -43,7 +42,6 @@ import { TeamDetailsRankingComponent } from './views/ranking/team-details-rankin
     HeaderComponent,
     FullPageLayoutComponent,
     AppLayoutComponent,
-    TestComponent,
     PaginationComponent,
     SignInComponent,
     StageListComponent,

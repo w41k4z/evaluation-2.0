@@ -8,10 +8,12 @@ import proj.eval.app.model.stat.RunnerRanking;
 import proj.eval.app.model.stat.TeamAllCategoryRanking;
 import proj.eval.app.model.stat.TeamCategoryRanking;
 import proj.eval.app.model.stat.TeamRanking;
+import proj.eval.app.model.stat.TeamRankingDetails;
 import proj.eval.app.repository.GeneralRankingRepository;
 import proj.eval.app.repository.RunnerRankingRepository;
 import proj.eval.app.repository.TeamAllCategoryRankingRepository;
 import proj.eval.app.repository.TeamCategoryRankingRepository;
+import proj.eval.app.repository.TeamRankingDetailsRepository;
 import proj.eval.app.repository.TeamRankingRepository;
 
 @Service
@@ -22,19 +24,21 @@ public class RankingService {
   private RunnerRankingRepository runnerRankingRepository;
   private TeamCategoryRankingRepository teamCategoryRankingRepository;
   private TeamAllCategoryRankingRepository teamAllCategoryRankingRepository;
+  private TeamRankingDetailsRepository teamRankingDetailsRepository;
 
   public RankingService(
-    GeneralRankingRepository generalRankingRepository,
-    TeamRankingRepository teamRankingRepository,
-    RunnerRankingRepository runnerRankingRepository,
-    TeamCategoryRankingRepository teamCategoryRankingRepository,
-    TeamAllCategoryRankingRepository teamAllCategoryRankingRepository
-  ) {
+      GeneralRankingRepository generalRankingRepository,
+      TeamRankingRepository teamRankingRepository,
+      RunnerRankingRepository runnerRankingRepository,
+      TeamCategoryRankingRepository teamCategoryRankingRepository,
+      TeamAllCategoryRankingRepository teamAllCategoryRankingRepository,
+      TeamRankingDetailsRepository teamRankingDetailsRepository) {
     this.generalRankingRepository = generalRankingRepository;
     this.teamRankingRepository = teamRankingRepository;
     this.runnerRankingRepository = runnerRankingRepository;
     this.teamCategoryRankingRepository = teamCategoryRankingRepository;
     this.teamAllCategoryRankingRepository = teamAllCategoryRankingRepository;
+    this.teamRankingDetailsRepository = teamRankingDetailsRepository;
   }
 
   public User certificate(String filter) {
@@ -65,8 +69,7 @@ public class RankingService {
 
   public List<TeamCategoryRanking> teamCategoryRanking(String categoryName) {
     return this.teamCategoryRankingRepository.findAllByCategory_Name(
-        categoryName
-      );
+        categoryName);
   }
 
   private List<TeamAllCategoryRanking> teamAllCategoryRanking() {
@@ -79,5 +82,13 @@ public class RankingService {
 
   public List<GeneralRanking> runnerRankingPerStage() {
     return this.generalRankingRepository.findAll();
+  }
+
+  public List<GeneralRanking> runnerRankingByStage(Long stageId) {
+    return this.generalRankingRepository.findAllByStage_Id(stageId);
+  }
+
+  public List<TeamRankingDetails> rankingDetailsByTeam(String team) {
+    return this.teamRankingDetailsRepository.findAllByTeam_Id(team);
   }
 }

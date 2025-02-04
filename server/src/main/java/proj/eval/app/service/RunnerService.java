@@ -42,26 +42,23 @@ public class RunnerService {
     }
     EntitySpecification<Runner> entitySpec = new EntitySpecification<>();
     Specification<Runner> spec = entitySpec.equals("state", 0);
-    // If admin, all runners are returned, otherwise only the runners of the current logged in team
+    // If admin, all runners are returned, otherwise only the runners of the current
+    // logged in team
     if (!isAdmin) {
       RunnerSpecification runnerSpec = new RunnerSpecification();
-      spec =
-        spec.and(
+      spec = spec.and(
           runnerSpec.hasTeam(
-            this.userService.findByUsername(userDetails.getUsername()).getId()
-          )
-        );
+              this.userService.findByUsername(userDetails.getUsername()).getId()));
     }
     return repository.findAll(spec);
   }
 
   public Runner create(
-    String name,
-    String teamId,
-    Integer number,
-    Integer gender,
-    Date birthDate
-  ) {
+      String name,
+      String teamId,
+      String number,
+      Integer gender,
+      Date birthDate) {
     Runner runner = new Runner();
     runner.setName(name);
     User team = new User();
@@ -75,13 +72,12 @@ public class RunnerService {
   }
 
   public Runner update(
-    Long id,
-    String name,
-    String teamId,
-    Integer number,
-    Integer gender,
-    Date birthDate
-  ) {
+      Long id,
+      String name,
+      String teamId,
+      String number,
+      Integer gender,
+      Date birthDate) {
     Optional<Runner> runner = repository.findById(id);
     if (runner.isEmpty()) {
       throw new RunnerException("Runner with id: `" + id + "` not found");

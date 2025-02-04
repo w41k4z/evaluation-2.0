@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import proj.eval.app.model.StageRunner;
 
 public interface StageRunnerRepository
-  extends
-    JpaRepository<StageRunner, Long>, JpaSpecificationExecutor<StageRunner> {}
+    extends
+    JpaRepository<StageRunner, Long>, JpaSpecificationExecutor<StageRunner> {
+}

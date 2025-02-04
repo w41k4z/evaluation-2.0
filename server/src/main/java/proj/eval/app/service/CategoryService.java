@@ -22,10 +22,9 @@ public class CategoryService {
   private RunnerService runnerService;
 
   public CategoryService(
-    ManualConnection manualConnection,
-    CategoryRepository repository,
-    RunnerService runnerService
-  ) {
+      ManualConnection manualConnection,
+      CategoryRepository repository,
+      RunnerService runnerService) {
     this.manualConnection = manualConnection;
     this.repository = repository;
     this.runnerService = runnerService;
@@ -35,8 +34,7 @@ public class CategoryService {
     Optional<Category> category = this.repository.findByName(name);
     if (category.isEmpty()) {
       throw new CategoryException(
-        "Category with name: `" + name + "` not found"
-      );
+          "Category with name: `" + name + "` not found");
     }
     return category.get();
   }
@@ -67,13 +65,11 @@ public class CategoryService {
     List<Runner> runners = this.runnerService.allRunners();
     List<Category> categories = this.list();
     StringBuilder sql = new StringBuilder(
-      "INSERT INTO runner_categories(runner_id, category_id) VALUES("
-    );
+        "INSERT INTO runner_categories(runner_id, category_id) VALUES(");
     for (Runner runner : runners) {
       for (Category category : categories) {
-        int age =
-          LocalDate.now().getYear() -
-          runner.getBirthDate().toLocalDate().getYear();
+        int age = LocalDate.now().getYear() -
+            runner.getBirthDate().toLocalDate().getYear();
         switch (category.getName()) {
           case "Homme":
             if (runner.getGender() == 1) {
@@ -109,8 +105,7 @@ public class CategoryService {
             break;
           default:
             throw new CategoryException(
-              "Category not yet implemented: " + category.getName()
-            );
+                "Category not yet implemented: " + category.getName());
         }
       }
     }

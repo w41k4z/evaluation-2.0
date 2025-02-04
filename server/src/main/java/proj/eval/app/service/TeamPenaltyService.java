@@ -22,10 +22,9 @@ public class TeamPenaltyService {
   }
 
   public TeamPenalty assignPenalty(
-    Long stageId,
-    String teamId,
-    Time penaltyTime
-  ) {
+      Long stageId,
+      String teamId,
+      Time penaltyTime) {
     Stage stage = new Stage();
     stage.setId(stageId);
     User team = new User();

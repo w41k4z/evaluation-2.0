@@ -10,32 +10,30 @@ import proj.eval.app.model.importation.ImportedResult;
 public class ImportedResultService {
 
   public void importResults(
-    List<ImportedResult> importedResults,
-    Connection connection
-  ) throws SQLException {
+      List<ImportedResult> importedResults,
+      Connection connection) throws SQLException {
     this.insertAll(importedResults, connection);
     connection.createStatement().execute("CALL import_results()");
   }
 
   public void insertAll(
-    List<ImportedResult> importedResults,
-    Connection connection
-  ) throws SQLException {
+      List<ImportedResult> importedResults,
+      Connection connection) throws SQLException {
     StringBuilder sql = new StringBuilder(
-      "INSERT INTO imported_results(stage_rank, runner_number, runner_name, runner_gender, runner_birth_date, team, arrival_time) VALUES("
-    );
+        "INSERT INTO imported_results(stage_rank, runner_number, runner_name, runner_gender, runner_birth_date, team, arrival_time) VALUES(");
     for (ImportedResult importedResult : importedResults) {
       sql.append(importedResult.getStageRank());
       sql.append(",");
-      sql.append(importedResult.getRunnerNumber());
+      sql.append(importedResult.getRunnerNumber().replaceAll("'", "''"));
       sql.append(",");
-      sql.append("'" + importedResult.getRunnerName() + "'");
+      sql.append(
+          "'" + importedResult.getRunnerName().replaceAll("'", "''") + "'");
       sql.append(",");
       sql.append(ImportedResult.gender(importedResult.getRunnerStringGender()));
       sql.append(",");
       sql.append("'" + importedResult.getRunnerBirthDate() + "'");
       sql.append(",");
-      sql.append("'" + importedResult.getTeam() + "'");
+      sql.append("'" + importedResult.getTeam().replaceAll("'", "''") + "'");
       sql.append(",");
       sql.append("'" + importedResult.getArrivalTime().toString() + "'");
       sql.append("), (");

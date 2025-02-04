@@ -29,13 +29,6 @@ public class User {
   private Integer state;
 
   @ManyToMany
-  @JoinTable(
-    name = "user_roles",
-    joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(
-      name = "roles_id",
-      referencedColumnName = "id"
-    )
-  )
+  @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "roles_id", referencedColumnName = "id"))
   private Collection<Role> roles;
 }
